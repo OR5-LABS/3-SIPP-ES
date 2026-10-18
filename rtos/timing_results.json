@@ -1,0 +1,23 @@
+{
+  "samples": 20,
+  "interrupt_latency": {
+    "min": 63,
+    "max": 63,
+    "avg": 63
+  },
+  "scheduler_latency": {
+    "min": 316,
+    "max": 318,
+    "avg": 316
+  },
+  "task_execution": {
+    "min": 293,
+    "max": 300,
+    "avg": 293
+  },
+  "response_time": {
+    "min": 672,
+    "max": 681,
+    "avg": 672
+  }
+}

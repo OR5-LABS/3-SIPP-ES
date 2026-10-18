@@ -27,7 +27,7 @@ if ! command -v "$GCC" &>/dev/null; then
   exit 1
 fi
 
-FLAGS="-O2 -march=rv32im -mabi=ilp32 -nostartfiles -fno-pic -Wl,--no-relax -fno-builtin"
+FLAGS="-O2 -march=rv32im -mabi=ilp32 -nostdlib -fno-pic -Wl,--no-relax -fno-builtin"
 INCLUDES="-I."
 
 echo "Compiling CoreMark for 3-SIPP-ES..."
@@ -56,7 +56,7 @@ LDSCRIPT="../../sw/link.ld"
     core_matrix.c \
     core_state.c \
     core_util.c \
-    -o coremark.elf
+    -lgcc -o coremark.elf
 
 echo "Generating hex file..."
 "$OBJCOPY" -O binary coremark.elf coremark.bin

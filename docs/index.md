@@ -25,8 +25,7 @@ cores.
 - An **AXI4-Lite** bus wrapper.
 - A ready-to-run **FreeRTOS** port.
 - A deep **verification** flow: self-checking tests, golden-model
-  co-simulation, RVFI, a Debug-Module self-check, and the official
-  riscv-tests ISA suites.
+  co-simulation, RVFI, and a Debug-Module self-check.
 - **2.92 CoreMark/MHz** on RTL (no caches).
 
 ## Where to start

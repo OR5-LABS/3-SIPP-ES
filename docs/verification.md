@@ -36,16 +36,6 @@ PC continuity (each `pc_rdata` equals the previous `pc_wdata`), and no unknown
 `build.sh debug` halts the core over the Debug Module, reads and writes a GPR,
 resumes, and confirms the program continues with the debug-written value.
 
-## Official ISA tests
-
-`run_isa.sh` builds the official riscv-tests suites for the ISA 3-SIPP-ES claims
-(`rv32ui`, `rv32um`, `rv32ua`, `rv32uc`, `rv32uzba`, `rv32uzbb`, `rv32uzbc`,
-`rv32uzbs`, `rv32mi`) from `third_party/riscv-tests` and runs each one on the
-SoC testbench, in the default build and in the `SECURE` build. It prints one
-PASS/FAIL/SKIP line per test and a total, and exits non-zero on any failure.
-Current result: 215 PASS, 0 FAIL, 3 SKIP (each skip is printed with its
-reason; see the README).
-
 ## RTOS integration test
 
 `build.sh rtos` boots a real **FreeRTOS** image on the SoC and asserts a

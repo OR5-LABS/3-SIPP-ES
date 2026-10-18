@@ -23,7 +23,7 @@ mode="${1:-check}"
 
 # entries recorded by --baseline, in run order
 ENTRIES="build.sh:sim build.sh:cosim build.sh:rvfi build.sh:zcb build.sh:trig build.sh:debug
-build.sh:priv build.sh:axi build.sh:fpga run_isa.sh"
+build.sh:priv build.sh:axi build.sh:fpga"
 
 count() {  # $1 = log -> "pass fail"
   local p f

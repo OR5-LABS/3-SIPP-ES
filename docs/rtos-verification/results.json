@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-18T15:09:56Z",
+    "git_commit": "4dd5e20a5347c61bab7d99b15b40739ed444cccb",
+    "tools": {
+      "verilator": "Verilator 5.020 2024-01-01 rev (Debian 5.020-1)",
+      "gcc": "riscv64-unknown-elf-gcc (13.2.0-11ubuntu1+12) 13.2.0",
+      "python": "3.12.3"
+    },
+    "architecture": "3-SIPP-ES RV32IMAC(+B, Zcb)"
+  },
+  "unsupported_features": [
+    {
+      "feature": "MEIP (Machine External Interrupt)",
+      "status": "UNSUPPORTED",
+      "reason": "Core CSR logic supports MEIP, but irq_ext line is tied to 1'b0 in three_sipp_es_soc.sv (no platform PLIC instantiated)"
+    }
+  ],
+  "stages": [
+    {
+      "id": "stage1_demo",
+      "name": "Stage 1: Baseline FreeRTOS Demo & Negative Control",
+      "status": "PASS",
+      "duration_sec": 4.104166030883789,
+      "log": "[harness] testbench compiled\n\n================ POSITIVE run (preemptive tick ON) ================\n[TB] Loading IMEM from: rtos/build/rtos.hex (maxcyc=2000000)\n[TB] Reset released\n[BOOT]freertos\n[P]send:1\n[C]sem\n[C]got:1\n[P]send:2\n[C]sem\n[C]got:2\n[P]send:3\n[C]sem\n[C]got:3\n[P]send:4\n[C]sem\n[C]got:4\n[W]run@19\n[P]send:5\n[C]sem\n[C]got:5\n[P]send:6\n[C]sem\n[C]got:6\n[P]send:7\n[C]sem\n[C]got:7\n[W]run@38\n[P]send:8\n[C]sem\n[C]got:8\n[DONE]ok\n\n[TB] tohost write: 0x00000001 at cycle 144693\n[TB] PASS\n- tb/tb_three_sipp_es_rtos.sv:76: Verilog $finish\n\n================ NEGATIVE control (tick DISABLED) =================\n[TB] Loading IMEM from: rtos/build/rtos_neg.hex (maxcyc=300000)\n[TB] Reset released\n[BOOT]freertos\n[NEG]tick-disabled\n[P]send:1\n[C]sem\n[C]got:1\n\n[TB] TIMEOUT (no completion) at cycle 300001\n- tb/tb_three_sipp_es_rtos.sv:80: Verilog $finish\n\n==================================================================\n[positive] queue sends=[1, 2, 3, 4, 5, 6, 7, 8]\n[positive] queue recvs=[1, 2, 3, 4, 5, 6, 7, 8]\n[positive] semaphore takes=8  worker preemption ticks=[19, 38]\n[negative] items consumed before stall=1 (expect <=1)\n\nPOSITIVE: PASS  (queue in-order 1..8, 8 semaphore takes, Worker preempted, [DONE]ok)\nNEGATIVE: PASS  (tick disabled -> demo stalls, never completes)\n\nRESULT: RTOS DEMO PASS\n"
+    },
+    {
+      "id": "stage2_smoke",
+      "name": "Stage 2: Comprehensive RTOS Smoke Suite (8 Sub-tests)",
+      "status": "PASS",
+      "duration_sec": 2.101196527481079,
+      "log": "[run_smoke] Running: sim/tb_three_sipp_es_rtos +IMEM=rtos/build/rtos_smoke.hex +MAXCYC=3000000\n[TB] Loading IMEM from: rtos/build/rtos_smoke.hex (maxcyc=3000000)\n[TB] Reset released\n[BOOT] FreeRTOS Smoke Test Suite\n[SMOKE] Master controller started\n[TEST] Kernel Startup and Task Creation: PASS\n[TEST] Priority Preemption: PASS\n[TEST] Register State Preservation (s0-s11): PASS\n  - binary sem ok\n  - queue ok\n  - counting sem ok\n  - notify ok\n[TEST] Queue FIFO Communication: PASS\n[TEST] Semaphore and Notification Sync: PASS\n[TEST] Tick Progression and Task Delay: PASS\n[HOOK] malloc failed\n[TEST] Heap and Stack Boundary Handling: PASS\n[TEST] Repeated Rapid Task Switching: PASS\n\n[SMOKE] ALL STAGE 2 TESTS PASSED SUCCESSFULLY!\n\n[TB] tohost write: 0x00000001 at cycle 205911\n[TB] PASS\n- tb/tb_three_sipp_es_rtos.sv:76: Verilog $finish\n\n============================================================\n[run_smoke] STAGE 2 VERIFICATION PASSED: All 8 sub-tests verified.\n"
+    },
+    {
+      "id": "stage3_interrupt",
+      "name": "Stage 3: Timer & Software Interrupt Integration",
+      "status": "PASS",
+      "duration_sec": 2.1893486976623535,
+      "log": "[run_interrupt] Running: sim/tb_three_sipp_es_rtos +IMEM=rtos/build/rtos_interrupt.hex +MAXCYC=3000000\n[TB] Loading IMEM from: rtos/build/rtos_interrupt.hex (maxcyc=3000000)\n[TB] Reset released\n[BOOT] Timer and Interrupt Test Suite\n[INTERRUPT] Starting Timer and Interrupt Verification Suite\n[TEST] CLINT mtime hardware progression: PASS\n[TEST] Timer Interrupt Wake Fidelity (vTaskDelay): PASS\n[TEST] Software Interrupt (MSIP) Handling & Clearing: PASS\n[TEST] ISR-Driven Task Notification (vTaskNotifyGiveFromISR): PASS\n[TEST] Competing Interrupts and State Preservation: PASS\n\n[INTERRUPT] ALL STAGE 3 TESTS PASSED SUCCESSFULLY!\n\n[TB] tohost write: 0x00000001 at cycle 217294\n[TB] PASS\n- tb/tb_three_sipp_es_rtos.sv:76: Verilog $finish\n\n============================================================\n[run_interrupt] STAGE 3 VERIFICATION PASSED: All 5 sub-tests verified.\n"
+    },
+    {
+      "id": "stage4_timing",
+      "name": "Stage 4: Latency & Response-Time Characterization",
+      "status": "PASS",
+      "duration_sec": 2.0137691497802734,
+      "log": "[run_timing] Running: sim/tb_three_sipp_es_rtos +IMEM=rtos/build/rtos_timing.hex +MAXCYC=3000000\n[TB] Loading IMEM from: rtos/build/rtos_timing.hex (maxcyc=3000000)\n[TB] Reset released\n[BOOT] FreeRTOS Timing Instrumentation Harness\n[TIMING] Starting cycle-accurate latency characterization\n\n================ TIMING MEASUREMENT SUMMARY ================\nSamples: 20\nInterrupt Latency (cycles)     : min=63 max=63 avg=63\nScheduler Latency (cycles)     : min=316 max=318 avg=316\nTask Execution Time (cycles)   : min=293 max=300 avg=293\nEnd-to-End Response (cycles)   : min=672 max=681 avg=672\n\n[TIMING_JSON_START]\n{\n  \"samples\": 20,\n  \"interrupt_latency\": {\"min\": 63, \"max\": 63, \"avg\": 63},\n  \"scheduler_latency\": {\"min\": 316, \"max\": 318, \"avg\": 316},\n  \"task_execution\": {\"min\": 293, \"max\": 300, \"avg\": 293},\n  \"response_time\": {\"min\": 672, \"max\": 681, \"avg\": 672}\n}\n[TIMING_JSON_END]\n\n[TIMING] ALL STAGE 4 MEASUREMENTS COMPLETE!\n\n[TB] tohost write: 0x00000001 at cycle 172936\n[TB] PASS\n- tb/tb_three_sipp_es_rtos.sv:76: Verilog $finish\n\n[run_timing] Wrote structured metrics to: rtos/timing_results.json\n[run_timing] STAGE 4 TIMING CHARACTERIZATION PASSED\n"
+    },
+    {
+      "id": "stage5_stress",
+      "name": "Stage 5: Stress Workload & Schedulability Negative Control",
+      "status": "PASS",
+      "duration_sec": 4.066386699676514,
+      "log": "\n---------------- POSITIVE STRESS RUN ----------------\n[run_stress] Running: sim/tb_three_sipp_es_rtos +IMEM=rtos/build/rtos_stress.hex +MAXCYC=3000000\n[TB] Loading IMEM from: rtos/build/rtos_stress.hex (maxcyc=3000000)\n[TB] Reset released\n[BOOT] FreeRTOS Stress Test Suite\n[STRESS] Starting Deterministic Stress & Schedulability Workload\n\n================ STRESS TEST RESULTS ================\nTask 1 Releases (T=10ms) : 8\nTask 2 Releases (T=25ms) : 4\nBackground Cycles Burned : 508\nDeadline Misses Detected : 0\n[STRESS] ALL SCHEDULED TASKS MET DEADLINES: PASS\n\n[TB] tohost write: 0x00000001 at cycle 253012\n[TB] PASS\n- tb/tb_three_sipp_es_rtos.sv:76: Verilog $finish\n\n\n---------------- NEGATIVE CONTROL RUN ----------------\n[run_stress] Running: sim/tb_three_sipp_es_rtos +IMEM=rtos/build/rtos_stress_neg.hex +MAXCYC=3000000\n[TB] Loading IMEM from: rtos/build/rtos_stress_neg.hex (maxcyc=3000000)\n[TB] Reset released\n[BOOT] FreeRTOS Stress Test Suite\n[STRESS] Starting Deterministic Stress & Schedulability Workload\n[STRESS] Negative control: Deliberate overload injected\n[DEADLINE MISS] Task 1 exceeded deadline!\n[DEADLINE MISS] Task 1 exceeded deadline!\n[DEADLINE MISS] Task 1 exceeded deadline!\n\n================ STRESS TEST RESULTS ================\nTask 1 Releases (T=10ms) : 4\nTask 2 Releases (T=25ms) : 0\nBackground Cycles Burned : 0\nDeadline Misses Detected : 3\n[STRESS_NEG] PASS: Deadline miss successfully caught as designed!\n\n[TB] tohost write: 0x00000001 at cycle 255125\n[TB] PASS\n- tb/tb_three_sipp_es_rtos.sv:76: Verilog $finish\n\n============================================================\n[run_stress] STAGE 5 STRESS AND SCHEDULABILITY VERIFICATION PASSED\n"
+    }
+  ],
+  "summary": {
+    "total_stages": 5,
+    "passed": 5,
+    "failed": 0,
+    "unsupported": 1,
+    "total_duration_sec": 14.475117683410645,
+    "overall_verdict": "PASS"
+  }
+}

@@ -32,8 +32,8 @@ module three_sipp_es_muldiv
   // ---- multiply: combinational 64-bit product on latched operands ----------
   // Operands are explicitly extended to 64 bits BEFORE the multiply so the full
   // product is formed (a 32x32 product needs 64-bit operands in the multiply;
-  // relying on context width mis-computes the high word — caught by riscv-tests
-  // mulh/mulhsu). se_* = sign-extended, ze_* = zero-extended.
+  // relying on context width mis-computes the high word — caught by multiply
+  // tests mulh/mulhsu). se_* = sign-extended, ze_* = zero-extended.
   wire [63:0] se_a = {{32{a_q[31]}}, a_q};
   wire [63:0] se_b = {{32{b_q[31]}}, b_q};
   wire [63:0] ze_a = {32'b0, a_q};

@@ -12,6 +12,12 @@
 #   ./run_tests.sh --baseline  re-record tests/expected.txt from this run
 set -u
 cd "$(dirname "$0")"
+if [ -n "${RISCV_TC:-}" ]; then
+  if [ -d "${RISCV_TC}/bin" ]; then
+    export RISCV_TC="${RISCV_TC}/bin"
+  fi
+  export PATH="${RISCV_TC}:${PATH}"
+fi
 mkdir -p build/test-logs
 mode="${1:-check}"
 

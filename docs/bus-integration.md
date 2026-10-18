@@ -1,18 +1,18 @@
 # Bus Integration
 
-Takshaka presents a simple native memory interface out of the core, and ships an
+3-SIPP-ES presents a simple native memory interface out of the core, and ships an
 **AXI4-Lite** bridge for dropping the core into a standard SoC fabric.
 
 ## Native interface
 
 The core drives a lightweight valid/ready instruction-fetch port and a
-load/store port with byte strobes. The reference SoC (`takshaka_soc.sv`) wires
+load/store port with byte strobes. The reference SoC (`three_sipp_es_soc.sv`) wires
 these directly to on-chip memories and peripherals — the smallest, lowest-latency
 option.
 
 ## AXI4-Lite bridge
 
-`rtl/takshaka_axi_lite.sv` is an **AXI4-Lite master** that adapts the core's
+`rtl/three_sipp_es_axi_lite.sv` is an **AXI4-Lite master** that adapts the core's
 load/store interface to the five AXI channels (AW / W / B / AR / R) with
 `VALID`/`READY` handshakes and byte strobes (`WSTRB`). It carries one
 outstanding transaction and propagates the AXI response (`OKAY` / `SLVERR`) back
@@ -38,5 +38,5 @@ Expected output:
 AXI: PASS
 ```
 
-Use the AXI bridge to attach Takshaka to an AXI interconnect, or keep the native
+Use the AXI bridge to attach 3-SIPP-ES to an AXI interconnect, or keep the native
 interface for a tightly-coupled memory subsystem.

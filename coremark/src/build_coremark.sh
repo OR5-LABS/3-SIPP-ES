@@ -2,30 +2,35 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-TC="${RISCV_TC:-}"
-PFX="${TC:+$TC/}"
+if [ -n "${RISCV_TC:-}" ]; then
+  if [ -d "${RISCV_TC}/bin" ]; then
+    export RISCV_TC="${RISCV_TC}/bin"
+  fi
+  export PATH="${RISCV_TC}:${PATH}"
+fi
+PFX="${RISCV_TC:+$RISCV_TC/}"
+
+if [ -z "${GCC:-}" ]; then
+  for tuple in riscv-none-elf riscv32-unknown-elf riscv64-unknown-elf riscv-elf riscv64-elf; do
+    if command -v "${PFX}${tuple}-gcc" &>/dev/null; then
+      GCC="${PFX}${tuple}-gcc"
+      OBJCOPY="${OBJCOPY:-${PFX}${tuple}-objcopy}"
+      break
+    fi
+  done
+fi
 GCC="${GCC:-${PFX}riscv-none-elf-gcc}"
 OBJCOPY="${OBJCOPY:-${PFX}riscv-none-elf-objcopy}"
 
-if ! command -v "$GCC" &>/dev/null && ! command -v riscv-none-elf-gcc &>/dev/null && ! command -v riscv32-unknown-elf-gcc &>/dev/null; then
-  echo "ERROR: RISC-V GCC toolchain not found!" >&2
-  exit 1
-fi
-
 if ! command -v "$GCC" &>/dev/null; then
-  if command -v riscv-none-elf-gcc &>/dev/null; then
-    GCC="riscv-none-elf-gcc"
-    OBJCOPY="riscv-none-elf-objcopy"
-  elif command -v riscv32-unknown-elf-gcc &>/dev/null; then
-    GCC="riscv32-unknown-elf-gcc"
-    OBJCOPY="riscv32-unknown-elf-objcopy"
-  fi
+  echo "ERROR: RISC-V GCC toolchain not found. Set RISCV_TC or GCC env vars." >&2
+  exit 1
 fi
 
 FLAGS="-O2 -march=rv32im -mabi=ilp32 -nostartfiles -fno-pic -Wl,--no-relax -fno-builtin"
 INCLUDES="-I."
 
-echo "Compiling CoreMark for Takshaka..."
+echo "Compiling CoreMark for 3-SIPP-ES..."
 
 ITERATIONS="${1:-100}"
 LDSCRIPT="../../sw/link.ld"

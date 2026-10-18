@@ -1,6 +1,6 @@
 # Verification
 
-Takshaka is verified with a layered flow — from quick self-checking smoke tests
+3-SIPP-ES is verified with a layered flow — from quick self-checking smoke tests
 to lock-step co-simulation against an independent golden model and a formal
 interface.
 
@@ -38,7 +38,7 @@ resumes, and confirms the program continues with the debug-written value.
 
 ## Official ISA tests
 
-`run_isa.sh` builds the official riscv-tests suites for the ISA Takshaka claims
+`run_isa.sh` builds the official riscv-tests suites for the ISA 3-SIPP-ES claims
 (`rv32ui`, `rv32um`, `rv32ua`, `rv32uc`, `rv32uzba`, `rv32uzbb`, `rv32uzbc`,
 `rv32uzbs`, `rv32mi`) from `third_party/riscv-tests` and runs each one on the
 SoC testbench, in the default build and in the `SECURE` build. It prints one

@@ -4,16 +4,16 @@ cd "$(dirname "$0")"
 echo "Building CoreMark for simulation (100 iterations)..."
 ./src/build_coremark.sh 100
 
-if [ ! -f ../obj_dir/Vtb_takshaka ]; then
-  echo "Building Takshaka simulator with Verilator..."
+if [ ! -f ../obj_dir/Vtb_three_sipp_es ]; then
+  echo "Building 3-SIPP-ES simulator with Verilator..."
   cd ..
-  verilator --binary --timing --top tb_takshaka -Wno-fatal -Irtl/common -Irtl rtl/common/takshaka_pkg.sv rtl/common/takshaka_alu.sv rtl/common/takshaka_regfile.sv rtl/common/takshaka_muldiv.sv rtl/common/takshaka_csr.sv rtl/common/takshaka_rvc.sv rtl/common/takshaka_immgen.sv rtl/common/takshaka_branch.sv rtl/common/takshaka_decode.sv rtl/common/takshaka_pmp.sv rtl/takshaka_debug.sv rtl/takshaka_core.sv rtl/takshaka_uart.sv rtl/takshaka_soc.sv tb/tb_takshaka.sv
+  verilator --binary --timing --top tb_three_sipp_es -Wno-fatal -Irtl/common -Irtl rtl/common/three_sipp_es_pkg.sv rtl/common/three_sipp_es_alu.sv rtl/common/three_sipp_es_regfile.sv rtl/common/three_sipp_es_muldiv.sv rtl/common/three_sipp_es_csr.sv rtl/common/three_sipp_es_rvc.sv rtl/common/three_sipp_es_immgen.sv rtl/common/three_sipp_es_branch.sv rtl/common/three_sipp_es_decode.sv rtl/common/three_sipp_es_pmp.sv rtl/three_sipp_es_debug.sv rtl/three_sipp_es_core.sv rtl/three_sipp_es_uart.sv rtl/three_sipp_es_soc.sv tb/tb_three_sipp_es.sv
   cd -
 fi
 
-echo "Running CoreMark on Takshaka simulation..."
+echo "Running CoreMark on 3-SIPP-ES simulation..."
 log=$(mktemp)
-../obj_dir/Vtb_takshaka +IMEM=src/coremark.hex | tee "$log"
+../obj_dir/Vtb_three_sipp_es +IMEM=src/coremark.hex | tee "$log"
 # the run must end with the testbench's PASS verdict (tohost = 1)
 if grep -qE 'FAIL|TIMEOUT' "$log" || ! grep -q '^\[TB\] PASS' "$log"; then
   rm -f "$log"; echo "CoreMark: FAIL (no [TB] PASS verdict)"; exit 1

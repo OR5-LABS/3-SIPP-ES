@@ -2,10 +2,10 @@ OUTPUT_ARCH(riscv)
 ENTRY(_start)
 
 /*
- * link_fpga.ld — Dhrystone 2.1 linker script for the Takshaka FPGA SoC
+ * link_fpga.ld — Dhrystone 2.1 linker script for the 3-SIPP-ES FPGA SoC
  *                (Arty A7-100T and similar boards).
  *
- * The FPGA SoC (takshaka_fpga.sv) has a single unified BRAM region:
+ * The FPGA SoC (three_sipp_es_fpga.sv) has a single unified BRAM region:
  *   Address 0x0000_0000 .. (MEM_WORDS*4 - 1)   — default: 32 KB (MEM_WORDS=8192)
  *
  * Unlike the simulation link.ld, .data and .bss MUST NOT be placed at

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # ==========================================================================
-# build_rtos.sh -- build the Takshaka FreeRTOS demo into a $readmemh IMEM hex.
+# build_rtos.sh -- build the 3-SIPP-ES FreeRTOS demo into a $readmemh IMEM hex.
 #
-# Compiles the FreeRTOS kernel + RISC-V port + Takshaka BSP + demo app, links
-# with bsp/takshaka.ld, and emits build/rtos.hex (one 32-bit word per line).
+# Compiles the FreeRTOS kernel + RISC-V port + 3-SIPP-ES BSP + demo app, links
+# with bsp/three_sipp_es.ld, and emits build/rtos.hex (one 32-bit word per line).
 # ==========================================================================
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -28,11 +28,34 @@ fi
 
 # RISC-V bare-metal GCC. Tools are taken from PATH; set RISCV_TC=/path/to/bin
 # to point at a specific toolchain (e.g. an xpack riscv-none-elf-gcc).
+if [ -n "${RISCV_TC:-}" ]; then
+  if [ -d "${RISCV_TC}/bin" ]; then
+    export RISCV_TC="${RISCV_TC}/bin"
+  fi
+  export PATH="${RISCV_TC}:${PATH}"
+fi
 PFX="${RISCV_TC:+$RISCV_TC/}"
+
+if [ -z "${GCC:-}" ]; then
+  for tuple in riscv-none-elf riscv32-unknown-elf riscv64-unknown-elf riscv-elf riscv64-elf; do
+    if command -v "${PFX}${tuple}-gcc" &>/dev/null; then
+      GCC="${PFX}${tuple}-gcc"
+      OBJCOPY="${OBJCOPY:-${PFX}${tuple}-objcopy}"
+      OBJDUMP="${OBJDUMP:-${PFX}${tuple}-objdump}"
+      SIZE="${SIZE:-${PFX}${tuple}-size}"
+      break
+    fi
+  done
+fi
 GCC="${GCC:-${PFX}riscv-none-elf-gcc}"
 OBJCOPY="${OBJCOPY:-${PFX}riscv-none-elf-objcopy}"
 OBJDUMP="${OBJDUMP:-${PFX}riscv-none-elf-objdump}"
-SIZE="${PFX}riscv-none-elf-size"
+SIZE="${SIZE:-${PFX}riscv-none-elf-size}"
+
+if ! command -v "$GCC" &>/dev/null; then
+  echo "ERROR: RISC-V GCC toolchain not found. Set RISCV_TC or GCC env vars." >&2
+  exit 1
+fi
 
 K=FreeRTOS-Kernel
 PORT=$K/portable/GCC/RISC-V
@@ -48,7 +71,7 @@ fi
 
 mkdir -p build
 
-# rv32imac (Takshaka is RV32IMAC); ilp32 ABI; freestanding; no relax so gp/la
+# rv32imac (3-SIPP-ES is RV32IMAC); ilp32 ABI; freestanding; no relax so gp/la
 # and the .data LMA stay put for our hand-rolled crt0.
 CFLAGS="-march=rv32imac_zicsr_zifencei -mabi=ilp32 -Os -g \
   -ffunction-sections -fdata-sections -fno-builtin -fno-pic \
@@ -87,7 +110,7 @@ done
 
 "$GCC" -march=rv32imac_zicsr_zifencei -mabi=ilp32 -nostdlib -nostartfiles \
   -fno-pic -Wl,--no-relax -Wl,--gc-sections \
-  -T bsp/takshaka.ld "${OBJS[@]}" -lgcc -o "build/${OUTBASE}.elf"
+  -T bsp/three_sipp_es.ld "${OBJS[@]}" -lgcc -o "build/${OUTBASE}.elf"
 
 "$OBJCOPY" -O binary "build/${OUTBASE}.elf" "build/${OUTBASE}.bin"
 python ../sw/bin2hex.py "build/${OUTBASE}.bin" "build/${OUTBASE}.hex"

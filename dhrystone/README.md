@@ -1,6 +1,6 @@
-# Dhrystone on Takshaka
+# Dhrystone on 3-SIPP-ES
 
-This directory contains a bare-metal **Dhrystone 2.1** port for the **Takshaka RV32IMC** processor. Two run flows are provided: RTL simulation (Verilator) and FPGA hardware (Arty A7-100T).
+This directory contains a bare-metal **Dhrystone 2.1** port for the **3-SIPP-ES RV32IMC** processor. Two run flows are provided: RTL simulation (Verilator) and FPGA hardware (Arty A7-100T).
 
 ## Toolchain & Environment
 
@@ -17,10 +17,10 @@ The benchmark is compiled for a 32-bit RISC-V target with the `IMC` extensions (
 
 ## Performance Results
 
-Takshaka achieves a score of **1.64 DMIPS/MHz** across both simulation and FPGA execution.
+3-SIPP-ES achieves a score of **1.64 DMIPS/MHz** across both simulation and FPGA execution.
 
 ### Simulation
-- **Environment**: Verilator testbench (`tb_takshaka`)
+- **Environment**: Verilator testbench (`tb_three_sipp_es`)
 - **Execution**: 2,000,000 iterations (industry standard)
 - **DMIPS**: Varies by simulated clock speed (50 MHz = ~82 DMIPS)
 - **DMIPS/MHz**: 1.644
@@ -52,7 +52,7 @@ dhrystone/
 ## Simulation flow
 
 The simulation script compiles the firmware and runs it through the Verilator
-`tb_takshaka` model in one command. Results are printed to stdout — no physical
+`tb_three_sipp_es` model in one command. Results are printed to stdout — no physical
 hardware required.
 
 ### Quick start
@@ -73,7 +73,7 @@ hardware required.
 1. Calls `src/build_dhrystone.sh <RUNS>` which cross-compiles with
    `-DNUMBER_OF_RUNS=<N> -DCLK_FREQ_HZ=50000000 -O2 -march=rv32imc`.
 2. Converts the ELF to a `$readmemh`-compatible hex via `sw/bin2hex.py`.
-3. Launches `../sim/tb_takshaka +IMEM=src/dhrystone.hex`.
+3. Launches `../sim/tb_three_sipp_es +IMEM=src/dhrystone.hex`.
 
 ## FPGA flow — Digilent Arty A7-100T
 
@@ -120,4 +120,4 @@ UART settings: **115200-8N1**. On Linux the UART device is typically
 | `read_mtime()` | Reads `mtime[31:0]` from CLINT at `0x0200_BFF8` |
 
 The firmware computes elapsed cycles as `mtime_end − mtime_start` (mtime ticks
-at `CLK_FREQ_HZ` in the Takshaka SoC) and derives DMIPS/MHz from there.
+at `CLK_FREQ_HZ` in the 3-SIPP-ES SoC) and derives DMIPS/MHz from there.

@@ -1,7 +1,7 @@
 /*
  * dhry_2.c — Dhrystone 2.1 helper procedures (Proc_6..Proc_8, Func_1..Func_3).
  * Reference: R. P. Weicker, CACM Vol. 27(10), October 1984.
- * Adapted for bare-metal RISC-V Takshaka SoC.
+ * Adapted for bare-metal RISC-V 3-SIPP-ES SoC.
  */
 #include "dhry.h"
 #include <string.h>

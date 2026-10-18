@@ -1,6 +1,6 @@
 # Memory Map
 
-The reference SoC (`rtl/takshaka_soc.sv`) wires the core to instruction and data
+The reference SoC (`rtl/three_sipp_es_soc.sv`) wires the core to instruction and data
 memory plus a small set of memory-mapped peripherals. The map is intentionally
 minimal and easy to relocate for your own integration.
 
@@ -30,4 +30,4 @@ output path for the RTOS demo and bring-up firmware.
 The core presents a simple valid/ready instruction-fetch and load/store
 interface; the SoC is just one way to wire it up. For a standard fabric, use the
 [AXI4-Lite bridge](bus-integration.md). Peripheral bases are parameters/localparams
-in `takshaka_soc.sv` and can be relocated to suit your address plan.
+in `three_sipp_es_soc.sv` and can be relocated to suit your address plan.

@@ -1,7 +1,7 @@
-site_name: Takshaka
+site_name: 3-SIPP-ES
 site_description: A compact, high-performance 3-stage pipelined RV32IMAC processor core
-site_author: Takshaka Contributors
-copyright: Copyright &copy; 2026 Takshaka Contributors
+site_author: 3-SIPP-ES Contributors
+copyright: Copyright &copy; 2026 3-SIPP-ES Contributors
 
 theme:
   name: material

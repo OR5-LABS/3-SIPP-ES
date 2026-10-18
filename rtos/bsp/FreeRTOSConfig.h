@@ -1,7 +1,7 @@
 /* ==========================================================================
- * FreeRTOSConfig.h -- Takshaka BSP.
+ * FreeRTOSConfig.h -- 3-SIPP-ES BSP.
  *
- * Targets the Takshaka SoC CLINT for the tick:
+ * Targets the 3-SIPP-ES SoC CLINT for the tick:
  *   CLINT base   = 0x0200_0000
  *   mtime        = 0x0200_BFF8
  *   mtimecmp     = 0x0200_4000

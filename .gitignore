@@ -9,12 +9,19 @@ build/
 obj_dir/
 *.jou
 *.log
+*.rpt
+*.dcp
+*.pb
+*.wdb
 vivado*/
 .Xil/
 
 # Python
 __pycache__/
 *.pyc
+.venv/
+env/
+venv/
 
 # MkDocs
 site/
@@ -29,3 +36,10 @@ rtos/build/
 *.mem
 *.hex
 *.o
+
+# Editor and OS temporary files
+*.swp
+*~
+.DS_Store
+.vscode/
+.idea/

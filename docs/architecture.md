@@ -1,6 +1,6 @@
 # Architecture
 
-Takshaka is a **3-stage, in-order, single-issue** pipeline. One instruction is
+3-SIPP-ES is a **3-stage, in-order, single-issue** pipeline. One instruction is
 fetched, executed, and retired per cycle in the common case; variable-latency
 operations (multiply, divide, misaligned access, atomics) extend transparently
 through a small set of stall conditions.
@@ -31,7 +31,7 @@ through a small set of stall conditions.
 
 ## Hazard handling
 
-Takshaka has no scoreboard — correctness comes from a compact set of
+3-SIPP-ES has no scoreboard — correctness comes from a compact set of
 mechanisms:
 
 - **Forwarding network:** results are bypassed from later stages back to EX so
@@ -46,7 +46,7 @@ mechanisms:
 
 ## Datapath leaf cells
 
-The reusable datapath blocks live in [`rtl/common/`](https://github.com/OR5-LABS/takshaka/tree/main/rtl/common):
+The reusable datapath blocks live in [`rtl/common/`](https://github.com/OR5-LABS/3-SIPP-ES/tree/main/rtl/common):
 the ALU (with the `B` bit-manipulation ops), the multiply/divide unit, the
 register file, the CSR file, the immediate generator, the branch comparator,
 the instruction decoder, the RVC (compressed) expander, and the PMP checker.

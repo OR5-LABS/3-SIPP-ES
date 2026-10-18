@@ -1,4 +1,4 @@
-/* core_portme.h — Takshaka bare-metal CoreMark port */
+/* core_portme.h — 3-SIPP-ES bare-metal CoreMark port */
 #ifndef CORE_PORTME_H
 #define CORE_PORTME_H
 

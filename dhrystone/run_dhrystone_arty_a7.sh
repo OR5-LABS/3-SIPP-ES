@@ -46,7 +46,7 @@ TIMEOUT=300
 # ---- Arty A7 specifics# FPGA clock frequency
 CLK_HZ=25000000           # 25 MHz (divided from 100MHz)
 PART=xc7a100tcsg324-1
-TCL_SCRIPT="$REPO_ROOT/fpga/arty_a7/takshaka_arty_a7.tcl"
+TCL_SCRIPT="$REPO_ROOT/fpga/arty_a7/three_sipp_es_arty_a7.tcl"
 
 # ---- Parse arguments --------------------------------------------------------
 while [[ $# -gt 0 ]]; do
@@ -77,7 +77,7 @@ die()   { echo -e "${RED}[ERROR]${NC} $*" >&2; exit 1; }
 sep()   { echo -e "${CYN}$(printf '%.0s─' {1..72})${NC}"; }
 
 sep
-echo -e "${CYN}  Takshaka Dhrystone — Arty A7-100T FPGA Run${NC}"
+echo -e "${CYN}  3-SIPP-ES Dhrystone — Arty A7-100T FPGA Run${NC}"
 echo -e "  Runs    : ${YLW}${RUNS}${NC}  (industry standard: 2 000 000)"
 echo -e "  Clock   : ${YLW}${CLK_HZ} Hz${NC}  (100 MHz)"
 echo -e "  UART    : ${UART_DEV}  @ ${BAUD}-8N1"
@@ -87,19 +87,28 @@ sep
 # STEP 1 — Toolchain detection
 # =============================================================================
 info "Detecting RISC-V toolchain..."
-TC="${RISCV_TC:-}"
-PFX="${TC:+$TC/}"
+if [ -n "${RISCV_TC:-}" ]; then
+    if [ -d "${RISCV_TC}/bin" ]; then
+        export RISCV_TC="${RISCV_TC}/bin"
+    fi
+    export PATH="${RISCV_TC}:${PATH}"
+fi
+PFX="${RISCV_TC:+$RISCV_TC/}"
+
+if [ -z "${GCC:-}" ]; then
+    for tuple in riscv-none-elf riscv32-unknown-elf riscv64-unknown-elf riscv-elf riscv64-elf; do
+        if command -v "${PFX}${tuple}-gcc" &>/dev/null; then
+            GCC="${PFX}${tuple}-gcc"
+            OBJCOPY="${OBJCOPY:-${PFX}${tuple}-objcopy}"
+            break
+        fi
+    done
+fi
 GCC="${GCC:-${PFX}riscv-none-elf-gcc}"
 OBJCOPY="${OBJCOPY:-${PFX}riscv-none-elf-objcopy}"
 
 if ! command -v "$GCC" &>/dev/null; then
-    if   command -v riscv-none-elf-gcc      &>/dev/null; then
-        GCC=riscv-none-elf-gcc; OBJCOPY=riscv-none-elf-objcopy
-    elif command -v riscv32-unknown-elf-gcc &>/dev/null; then
-        GCC=riscv32-unknown-elf-gcc; OBJCOPY=riscv32-unknown-elf-objcopy
-    else
-        die "RISC-V GCC toolchain not found. Set RISCV_TC or GCC env vars."
-    fi
+    die "RISC-V GCC toolchain not found. Set RISCV_TC or GCC env vars."
 fi
 ok "Using GCC: $(command -v "$GCC")"
 
@@ -137,7 +146,7 @@ ok "firmware.mem written: $MEM_FILE"
 # =============================================================================
 # STEP 3 — Vivado synthesis / P&R (optional, skipped with --no-synth)
 # =============================================================================
-BITFILE="$BUILD_DIR/takshaka_arty_a7.bit"
+BITFILE="$BUILD_DIR/three_sipp_es_arty_a7.bit"
 
 if [[ $DO_SYNTH -eq 1 ]]; then
     sep
@@ -160,7 +169,7 @@ set build_dir [lindex $argv 0]
 open_checkpoint "$build_dir/route.dcp"
 add_files -norecurse "$build_dir/firmware.mem"
 set_property file_type {Memory Initialization Files} [get_files firmware.mem]
-write_bitstream -force "$build_dir/takshaka_arty_a7.bit"
+write_bitstream -force "$build_dir/three_sipp_es_arty_a7.bit"
 EOF
         vivado -mode batch -source "$BUILD_DIR/fast_rebit.tcl" -tclargs "$BUILD_DIR" \
                -log "$BUILD_DIR/vivado_rebit.log" -journal "$BUILD_DIR/vivado_rebit.jou"
@@ -193,8 +202,8 @@ info "UART device : ${UART_DEV} @ ${BAUD}-8N1  (timeout ${TIMEOUT}s)"
 #           The FPGA auto-resets the instant openFPGALoader finishes; any
 #           listener started after that races against the firmware's first bytes.
 # =============================================================================
-UART_LOG="$(mktemp /tmp/takshaka_dhry_uart.XXXXXX)"
-UART_DONE_FLAG="$(mktemp /tmp/takshaka_dhry_done.XXXXXX)"
+UART_LOG="$(mktemp /tmp/three_sipp_es_dhry_uart.XXXXXX)"
+UART_DONE_FLAG="$(mktemp /tmp/three_sipp_es_dhry_done.XXXXXX)"
 rm -f "$UART_DONE_FLAG"   # flag file is created by the listener when it succeeds
 
 if python3 -c "import serial" 2>/dev/null; then
@@ -302,7 +311,7 @@ wait "$UART_PID" || true
 
 if [[ -s "$UART_LOG" ]]; then
     echo
-    echo -e "${CYN}--- UART output from Takshaka @ ${BAUD}-8N1 ---${NC}"
+    echo -e "${CYN}--- UART output from 3-SIPP-ES @ ${BAUD}-8N1 ---${NC}"
     cat "$UART_LOG"
     echo -e "${CYN}--- End of UART capture ---${NC}"
     echo

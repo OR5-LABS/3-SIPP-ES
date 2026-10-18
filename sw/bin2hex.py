@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Convert a little-endian flat binary into one-32-bit-word-per-line hex for
-$readmemh (matches the Takshaka IMEM layout). Usage: bin2hex.py in.bin out.hex [pad_words]"""
+$readmemh (matches the 3-SIPP-ES IMEM layout). Usage: bin2hex.py in.bin out.hex [pad_words]"""
 import sys
 data = open(sys.argv[1], "rb").read()
 if len(data) % 4:

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Hand-assemble directed N-extension (user-trap) tests for Takshaka SECURE=1.
+"""Hand-assemble directed N-extension (user-trap) tests for 3-SIPP-ES SECURE=1.
 
 Emits programs/build/ntrap_<name>.hex. Exit protocol: store 1 -> PASS, else
 FAIL(code) to tohost.
 
-The N overlay (inlined in takshaka_core) delegates a synchronous exception taken
+The N overlay (inlined in three_sipp_es_core) delegates a synchronous exception taken
 in U-mode to U-mode iff its cause bit is set in medeleg. A delegated trap saves
 uepc/ucause/utval, does ustatus.UPIE<=UIE / UIE<=0, vectors to utvec, and STAYS
 in U-mode. URET restores UIE and returns to uepc (still U).

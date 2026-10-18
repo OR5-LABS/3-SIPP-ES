@@ -61,13 +61,58 @@ K=FreeRTOS-Kernel
 PORT=$K/portable/GCC/RISC-V
 CHIP=$PORT/chip_specific_extensions/RISCV_MTIME_CLINT_no_extensions
 
-# Optional negative-control build:  build_rtos.sh neg  -> build/rtos_neg.hex
-VARIANT="${1:-}"
-XDEF=""; OUTBASE="rtos"
-if [ "$VARIANT" = "neg" ]; then
-  XDEF="-DNEG_NO_TICK"; OUTBASE="rtos_neg"
-  echo "== NEGATIVE CONTROL build (tick disabled) =="
-fi
+# App variant selection: demo (default), neg, smoke, interrupt, timing, stress
+VARIANT="${1:-demo}"
+XDEF=""
+APP_SRC="app/main.c"
+OUTBASE="rtos"
+
+case "$VARIANT" in
+  demo|"")
+    APP_SRC="app/main.c"
+    OUTBASE="rtos"
+    ;;
+  neg)
+    APP_SRC="app/main.c"
+    XDEF="-DNEG_NO_TICK"
+    OUTBASE="rtos_neg"
+    echo "== NEGATIVE CONTROL build (tick disabled) =="
+    ;;
+  smoke)
+    APP_SRC="app/test_smoke.c"
+    OUTBASE="rtos_smoke"
+    ;;
+  interrupt)
+    APP_SRC="app/test_interrupt.c"
+    OUTBASE="rtos_interrupt"
+    ;;
+  timing)
+    APP_SRC="app/test_timing.c"
+    OUTBASE="rtos_timing"
+    ;;
+  stress)
+    APP_SRC="app/test_stress.c"
+    OUTBASE="rtos_stress"
+    ;;
+  stress_neg)
+    APP_SRC="app/test_stress.c"
+    XDEF="-DNEG_OVERLOAD"
+    OUTBASE="rtos_stress_neg"
+    echo "== NEGATIVE CONTROL build (deliberate overload) =="
+    ;;
+  *)
+    if [ -f "app/${VARIANT}.c" ]; then
+      APP_SRC="app/${VARIANT}.c"
+      OUTBASE="rtos_${VARIANT}"
+    elif [ -f "$VARIANT" ]; then
+      APP_SRC="$VARIANT"
+      OUTBASE="rtos_$(basename "$VARIANT" .c)"
+    else
+      echo "Unknown variant: $VARIANT" >&2
+      exit 1
+    fi
+    ;;
+esac
 
 mkdir -p build
 
@@ -87,7 +132,7 @@ SRCS_C="
   $PORT/port.c
   bsp/bsp.c
   bsp/libc_stubs.c
-  app/main.c
+  $APP_SRC
 "
 SRCS_S="
   bsp/start.S
@@ -98,7 +143,7 @@ OBJS=()
 for f in $SRCS_C; do
   o="build/${OUTBASE}_$(echo "$f" | tr '/.' '__').o"
   XF=""
-  [ "$f" = "app/main.c" ] && XF="$XDEF"
+  [ "$f" = "$APP_SRC" ] && XF="$XDEF"
   "$GCC" $CFLAGS $XF -c "$f" -o "$o"
   OBJS+=("$o")
 done
@@ -113,7 +158,8 @@ done
   -T bsp/three_sipp_es.ld "${OBJS[@]}" -lgcc -o "build/${OUTBASE}.elf"
 
 "$OBJCOPY" -O binary "build/${OUTBASE}.elf" "build/${OUTBASE}.bin"
-python ../sw/bin2hex.py "build/${OUTBASE}.bin" "build/${OUTBASE}.hex"
+PY="${PYTHON:-$(command -v python3 || command -v python)}"
+"$PY" ../sw/bin2hex.py "build/${OUTBASE}.bin" "build/${OUTBASE}.hex"
 
 # size report
 echo "---- section sizes ----"

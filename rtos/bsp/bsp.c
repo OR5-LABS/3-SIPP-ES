@@ -64,14 +64,31 @@ void vAssertCalled( const char *pcFile, unsigned long ulLine )
 }
 
 /* handle_exception path calls this for any non-ecall synchronous exception. */
-void freertos_risc_v_application_exception_handler( void )
+__attribute__((weak)) void freertos_risc_v_application_exception_handler( void )
 {
     uart_puts( "\n[TRAP] unexpected exception\n" );
     sim_fail();
 }
 
-void freertos_risc_v_application_interrupt_handler( void )
+__attribute__((weak)) void freertos_risc_v_application_interrupt_handler( void )
 {
     uart_puts( "\n[TRAP] unexpected interrupt\n" );
+    sim_fail();
+}
+
+volatile uint32_t g_malloc_failed_count = 0;
+void vApplicationMallocFailedHook( void )
+{
+    g_malloc_failed_count++;
+    uart_puts( "[HOOK] malloc failed\n" );
+}
+
+void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName )
+{
+    (void) xTask;
+    taskDISABLE_INTERRUPTS();
+    uart_puts( "\n[STACK OVERFLOW] task: " );
+    if( pcTaskName ) uart_puts( pcTaskName );
+    uart_putc( '\n' );
     sim_fail();
 }

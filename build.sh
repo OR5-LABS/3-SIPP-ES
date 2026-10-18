@@ -2,7 +2,7 @@
 # ============================================================================
 # 3-SIPP-ES build & test driver (Verilator).
 #
-#   ./build.sh [sim|cosim|rvfi|zcb|trig|debug|priv|axi|rtos|fpga|clean]
+#   ./build.sh [sim|cosim|rvfi|zcb|trig|debug|priv|axi|rtos|rtos-suite|fpga|clean]
 #
 # 3-SIPP-ES is a 3-stage in-order RV32IMAC(+B, Zcb) core. The datapath leaf
 # cells (ALU / muldiv / regfile / CSR / RVC / immgen / branch / decoder / PMP)
@@ -91,6 +91,12 @@ if [[ "$ACTION" == "rtos" ]]; then
   bash rtos/build_rtos.sh neg
   echo "Running FreeRTOS demo + assertions..."
   VERILATOR="$VRL" "$PY" rtos/run_rtos.py
+  exit $?
+fi
+
+if [[ "$ACTION" == "rtos-suite" ]]; then
+  echo "Running comprehensive 3-SIPP-ES FreeRTOS verification suite..."
+  VERILATOR="$VRL" "$PY" rtos/run_all.py
   exit $?
 fi
 

@@ -125,7 +125,7 @@ if [[ ! -f "$LDSCRIPT" ]]; then
     cp "$REPO_ROOT/dhrystone/src/link_fpga.ld" "$LDSCRIPT"
 fi
 
-FLAGS="-O2 -march=rv32im -mabi=ilp32 -nostartfiles -fno-pic -Wl,--no-relax -fno-builtin"
+FLAGS="-O2 -march=rv32im -mabi=ilp32 -nostdlib -fno-pic -Wl,--no-relax -fno-builtin"
 INCLUDES="-I$SRC_DIR"
 
 "$GCC" $FLAGS $INCLUDES -T "$LDSCRIPT" \
@@ -149,7 +149,7 @@ INCLUDES="-I$SRC_DIR"
     "$SRC_DIR/core_matrix.c" \
     "$SRC_DIR/core_state.c" \
     "$SRC_DIR/core_util.c" \
-    -o "$SRC_DIR/coremark_arty.elf"
+    -lgcc -o "$SRC_DIR/coremark_arty.elf"
 
 ok "ELF built: $SRC_DIR/coremark_arty.elf"
 

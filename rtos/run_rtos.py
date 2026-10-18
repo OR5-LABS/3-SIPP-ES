@@ -56,7 +56,7 @@ def compile_tb():
     print("[harness] testbench compiled")
 
 def run(hexfile, maxcyc):
-    r = sh([SIM, f"+IMEM={hexfile}", f"+MAXCYC={maxcyc}"])
+    r = sh([os.path.relpath(SIM, CORE), f"+IMEM={os.path.relpath(hexfile, CORE)}", f"+MAXCYC={maxcyc}"])
     return r.stdout + r.stderr
 
 def check_positive(t):

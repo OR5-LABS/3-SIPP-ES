@@ -36,8 +36,8 @@
 #define configUSE_COUNTING_SEMAPHORES           1
 #define configUSE_TASK_NOTIFICATIONS            1
 #define configQUEUE_REGISTRY_SIZE               0
-#define configCHECK_FOR_STACK_OVERFLOW          0
-#define configUSE_TRACE_FACILITY                0
+#define configCHECK_FOR_STACK_OVERFLOW          2
+#define configUSE_TRACE_FACILITY                1
 
 /* ---- ISR stack (port provides it -> no linker symbol needed) ------------- */
 #define configISR_STACK_SIZE_WORDS              ( 512 )
@@ -49,7 +49,7 @@
 #define configAPPLICATION_ALLOCATED_HEAP        0
 
 /* ---- Hooks / asserts ----------------------------------------------------- */
-#define configUSE_MALLOC_FAILED_HOOK            0
+#define configUSE_MALLOC_FAILED_HOOK            1
 extern void vAssertCalled( const char * pcFile, unsigned long ulLine );
 #define configASSERT( x )    if( ( x ) == 0 ) vAssertCalled( __FILE__, __LINE__ )
 
@@ -62,7 +62,7 @@ extern void vAssertCalled( const char * pcFile, unsigned long ulLine );
 #define INCLUDE_vTaskDelay                      1
 #define INCLUDE_xTaskGetSchedulerState          1
 #define INCLUDE_xTaskGetCurrentTaskHandle       1
-#define INCLUDE_uxTaskGetStackHighWaterMark     0
+#define INCLUDE_uxTaskGetStackHighWaterMark     1
 #define INCLUDE_eTaskGetState                   1
 
 #endif /* FREERTOS_CONFIG_H */

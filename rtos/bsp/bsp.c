@@ -1,4 +1,4 @@
-/* takshaka BSP: UART console driver + sim exit + FreeRTOS support stubs. */
+/* three_sipp_es BSP: UART console driver + sim exit + FreeRTOS support stubs. */
 #include "bsp.h"
 #include "FreeRTOS.h"
 #include "task.h"

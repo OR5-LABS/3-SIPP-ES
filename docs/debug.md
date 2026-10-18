@@ -1,6 +1,6 @@
 # Debug
 
-Takshaka implements **RISC-V External Debug**: a JTAG Transport Module (DTM)
+3-SIPP-ES implements **RISC-V External Debug**: a JTAG Transport Module (DTM)
 plus a Debug Module (DM) that let an external debugger halt the core and inspect
 or modify its state. Hardware triggers add self-hosted breakpoints and
 watchpoints.
@@ -16,7 +16,7 @@ watchpoints.
 - **`ebreak`** — with the relevant `dcsr` bit set, `ebreak` enters debug mode
   instead of trapping.
 
-The DTM/DM (`rtl/takshaka_debug.sv`) presents a standard JTAG interface, so
+The DTM/DM (`rtl/three_sipp_es_debug.sv`) presents a standard JTAG interface, so
 OpenOCD + GDB drive it in the usual way. `build.sh debug` runs a self-check that
 halts the core, reads a computed GPR, writes a new value, resumes, and confirms
 the program continues with the debug-written value.

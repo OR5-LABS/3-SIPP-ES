@@ -1,6 +1,6 @@
 # Instruction Set
 
-Takshaka implements **RV32IMAC** plus the `B` bit-manipulation and `Zcb`
+3-SIPP-ES implements **RV32IMAC** plus the `B` bit-manipulation and `Zcb`
 code-size extensions.
 
 ## Base and standard extensions

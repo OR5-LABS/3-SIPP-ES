@@ -1,6 +1,6 @@
-/* takshaka BSP: UART console + sim exit helpers. */
-#ifndef TAKSHAKA_BSP_H
-#define TAKSHAKA_BSP_H
+/* three_sipp_es BSP: UART console + sim exit helpers. */
+#ifndef THREE_SIPP_ES_BSP_H
+#define THREE_SIPP_ES_BSP_H
 #include <stdint.h>
 
 /* SoC MMIO */

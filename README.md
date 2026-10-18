@@ -1,6 +1,6 @@
-# Takshaka
+# 3-SIPP-ES
 
-**Takshaka** is a compact, high-performance **3-stage pipelined RV32IMAC**
+**3-SIPP-ES** is a compact, high-performance **3-stage pipelined RV32IMAC**
 processor core. It executes instructions in a classic in-order
 fetch / execute / memory-writeback pipeline with full result forwarding (no
 load-use stall), and a dynamic branch predictor — delivering strong
@@ -31,13 +31,13 @@ cores.
 ## Repository layout
 
 ```
-takshaka/
+three_sipp_es/
 ├── rtl/                 core RTL
-│   ├── takshaka_core.sv   3-stage pipeline + predictor + forwarding
-│   ├── takshaka_soc.sv    minimal SoC (IMEM/DRAM, CLINT, UART, tohost)
-│   ├── takshaka_debug.sv  JTAG DTM + RISC-V Debug Module
-│   ├── takshaka_axi_lite.sv  AXI4-Lite master bridge
-│   ├── takshaka_uart.sv   UART console peripheral
+│   ├── three_sipp_es_core.sv   3-stage pipeline + predictor + forwarding
+│   ├── three_sipp_es_soc.sv    minimal SoC (IMEM/DRAM, CLINT, UART, tohost)
+│   ├── three_sipp_es_debug.sv  JTAG DTM + RISC-V Debug Module
+│   ├── three_sipp_es_axi_lite.sv  AXI4-Lite master bridge
+│   ├── three_sipp_es_uart.sv   UART console peripheral
 │   └── common/            shared, pre-verified datapath leaf cells
 │                          (ALU, multiply/divide, register file, CSR file,
 │                           immediate/branch units, decoder, RVC, PMP)
@@ -109,12 +109,12 @@ testbench reports PASS.
 
 `./run_isa.sh` builds the official [riscv-tests](https://github.com/riscv-software-src/riscv-tests)
 (vendored under `third_party/riscv-tests`, unmodified, with the official
-`riscv-test-env` `p` environment) and runs them on the Takshaka SoC testbench
-(`tb/tb_takshaka.sv` + `rtl/takshaka_soc.sv`) in two builds: the default
+`riscv-test-env` `p` environment) and runs them on the 3-SIPP-ES SoC testbench
+(`tb/tb_three_sipp_es.sv` + `rtl/three_sipp_es_soc.sv`) in two builds: the default
 Machine-only core and the `SECURE` core, where the environment runs the
 `rv32u*` tests in User mode. Code is linked into IMEM at `0x0`, data into DRAM
 at `0x8000_0000`, and a test passes when it writes 1 to `tohost` (`0x2000_0000`).
-The testbench is built with `-DTAKSHAKA_IMEM_WRITABLE` because `rv32uc/rvc`
+The testbench is built with `-DTHREE_SIPP_ES_IMEM_WRITABLE` because `rv32uc/rvc`
 stores into data kept in its code section.
 
 | Suite | Default build | `SECURE` build |
@@ -140,7 +140,7 @@ Skipped, with the reason printed by `run_isa.sh`:
 
 Some `rv32mi` tests check an optional feature only when it is present and pass
 without exercising it here: `breakpoint` tests only the type-2 `mcontrol`
-trigger (Takshaka implements `mcontrol6`, covered by `build.sh priv`), and
+trigger (3-SIPP-ES implements `mcontrol6`, covered by `build.sh priv`), and
 `illegal` skips its Supervisor-mode, vectored-interrupt and virtual-memory
 checks because those are not implemented.
 
@@ -149,17 +149,17 @@ checks because those are not implemented.
 - `Zifencei` is not implemented (`FENCE.I` is a no-op), so code that modifies
   its own instructions is not supported.
 - The default SoC drops data-port stores to IMEM; build with
-  `-DTAKSHAKA_IMEM_WRITABLE` (or set `IMEM_DATA_WRITE=1`) to allow them.
+  `-DTHREE_SIPP_ES_IMEM_WRITABLE` (or set `IMEM_DATA_WRITE=1`) to allow them.
 - Only direct `mtvec` mode is implemented (`mtvec.MODE` reads as 0).
 - The `rv32mi` suite does not cover Supervisor mode, virtual memory or vectored
-  interrupts, none of which Takshaka implements.
+  interrupts, none of which 3-SIPP-ES implements.
 - `run_tests.sh` does not include the FreeRTOS demo or the benchmarks: they
   need a RISC-V GCC with a C library. CI installs the xPack toolchain and runs
   them as separate steps.
 
 ## Performance & Benchmarks
 
-Takshaka has been evaluated across industry-standard embedded benchmarks in simulation and bare-metal execution on physical FPGA silicon.
+3-SIPP-ES has been evaluated across industry-standard embedded benchmarks in simulation and bare-metal execution on physical FPGA silicon.
 
 ### CoreMark
 
@@ -222,13 +222,13 @@ Synthesis and implementation were performed using **AMD Vivado 2023.2** targetin
 
 | Component / Target | Slice LUTs | Logic LUTs | LUTRAM | Registers (FF) | DSP48E1 | Block RAM (RAMB36) | Timing Slack (WNS) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Takshaka Reference SoC** | **15,895** (25.1%) | 7,559 | 8,336 | **2,150** (1.7%) | **12** (5.0%) | **0** (0.0%) | **+1.994 ns** @ 25 MHz |
+| **3-SIPP-ES Reference SoC** | **15,895** (25.1%) | 7,559 | 8,336 | **2,150** (1.7%) | **12** (5.0%) | **0** (0.0%) | **+1.994 ns** @ 25 MHz |
 
 ---
 
 ## Configurations
 
-Takshaka ships in two build-time configurations, selected by a parameter /
+3-SIPP-ES ships in two build-time configurations, selected by a parameter /
 define:
 
 | Configuration | LUTs | FFs | DSPs | BRAMs |
@@ -237,7 +237,7 @@ define:
 | SECURE (M+U, PMP/ePMP, ECC) | 8,647 | 2,993 | 12 | 0 |
 
 Enable the secure configuration with the `SECURE` RTL parameter, or at compile
-time with `-DTAKSHAKA_SECURE`.
+time with `-DTHREE_SIPP_ES_SECURE`.
 
 
 ## License

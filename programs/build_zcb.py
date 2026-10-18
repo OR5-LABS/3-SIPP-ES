@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Hand-assemble a directed Zcb (compressed sub-word LS + c.not/c.mul/ext) test
-for the Takshaka core. No GCC required.
+for the 3-SIPP-ES core. No GCC required.
 
 Emits programs/build/zcb.hex (one 32-bit word per line) for $readmemh.
 Convention: store 1 to tohost (0x2000_0000) on success, 2 on failure.

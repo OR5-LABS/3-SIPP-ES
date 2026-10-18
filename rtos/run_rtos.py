@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # ==========================================================================
-# run_rtos.py -- Self-checking Takshaka FreeRTOS demo harness.
+# run_rtos.py -- Self-checking 3-SIPP-ES FreeRTOS demo harness.
 #
-# Runs the compiled FreeRTOS image (rtos.hex) on the Takshaka sim, captures
+# Runs the compiled FreeRTOS image (rtos.hex) on the 3-SIPP-ES sim, captures
 # the UART console transcript, and ASSERTS the observable RTOS behaviour:
 #
 #   1. Boot banner.
@@ -26,10 +26,10 @@
 import os, re, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-CORE = os.path.dirname(HERE)                       # .../takshaka
+CORE = os.path.dirname(HERE)                       # .../three_sipp_es
 C    = "rtl/common"                                # shared leaf cells (this repo)
-DBG  = "rtl/takshaka_debug.sv"
-SIM  = os.path.join(CORE, "sim", "tb_takshaka_rtos")
+DBG  = "rtl/three_sipp_es_debug.sv"
+SIM  = os.path.join(CORE, "sim", "tb_three_sipp_es_rtos")
 POS  = os.path.join(HERE, "build", "rtos.hex")
 NEG  = os.path.join(HERE, "build", "rtos_neg.hex")
 
@@ -41,14 +41,14 @@ def sh(cmd, **kw):
 
 def compile_tb():
     src = [
-        f"{C}/takshaka_pkg.sv", f"{C}/takshaka_alu.sv", f"{C}/takshaka_regfile.sv",
-        f"{C}/takshaka_muldiv.sv", f"{C}/takshaka_csr.sv", f"{C}/takshaka_rvc.sv",
-        f"{C}/takshaka_immgen.sv", f"{C}/takshaka_branch.sv", f"{C}/takshaka_decode.sv",
-        f"{C}/takshaka_pmp.sv",
-        DBG, "rtl/takshaka_core.sv", "rtl/takshaka_uart.sv", "rtl/takshaka_soc.sv",
-        "tb/tb_takshaka_rtos.sv",
+        f"{C}/three_sipp_es_pkg.sv", f"{C}/three_sipp_es_alu.sv", f"{C}/three_sipp_es_regfile.sv",
+        f"{C}/three_sipp_es_muldiv.sv", f"{C}/three_sipp_es_csr.sv", f"{C}/three_sipp_es_rvc.sv",
+        f"{C}/three_sipp_es_immgen.sv", f"{C}/three_sipp_es_branch.sv", f"{C}/three_sipp_es_decode.sv",
+        f"{C}/three_sipp_es_pmp.sv",
+        DBG, "rtl/three_sipp_es_core.sv", "rtl/three_sipp_es_uart.sv", "rtl/three_sipp_es_soc.sv",
+        "tb/tb_three_sipp_es_rtos.sv",
     ]
-    cmd = [VERILATOR, "--binary", "-j", "0", "-Wno-fatal", "-Wno-WIDTHEXPAND", "-Wno-WIDTHTRUNC", "--trace", "--timescale", "1ns/1ps", "--Mdir", "sim", "-o", "tb_takshaka_rtos", "-I" + C, "-Irtl"] + src
+    cmd = [VERILATOR, "--binary", "-j", "0", "-Wno-fatal", "-Wno-WIDTHEXPAND", "-Wno-WIDTHTRUNC", "--trace", "--timescale", "1ns/1ps", "--Mdir", "sim", "-o", "tb_three_sipp_es_rtos", "-I" + C, "-Irtl"] + src
     r = sh(cmd)
     if r.returncode != 0:
         print(r.stdout); print(r.stderr)

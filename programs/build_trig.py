@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Hand-assemble directed HW-trigger (mcontrol6) tests for Takshaka.
+"""Hand-assemble directed HW-trigger (mcontrol6) tests for 3-SIPP-ES.
 
 Emits programs/build/trig_<name>.hex (one 32-bit word/line, for $readmemh).
 Exit protocol (family TB): store 1 -> PASS, other -> FAIL(code) to tohost.
 
-The trigger unit is inlined in takshaka_core (tselect 0x7A0 / tdata1 0x7A1 /
+The trigger unit is inlined in three_sipp_es_core (tselect 0x7A0 / tdata1 0x7A1 /
 tdata2 0x7A2 / tinfo 0x7A4). Two slots, each an mcontrol6 type-6 trigger:
   tdata1 bits: [31:28]=type(6) [21]=hit0(sticky) [15:12]=action(0=exc,1=debug)
                [6]=m(match-in-M) [2]=execute [1]=store [0]=load

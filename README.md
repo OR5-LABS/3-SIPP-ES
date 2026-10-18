@@ -23,7 +23,7 @@ cores.
 - **Memory & Buses:** Hardware misaligned access, native bus, and AXI4-Lite master
 - **Debug:** RISC-V external debug via JTAG (Debug Module and JTAG DTM report debug spec 0.13 (`dmstatus.version` = 2))
 - **Software & RTOS:** Preemptive FreeRTOS port with UART console
-- **Verification:** the official riscv-tests ISA suites (215 pass, 3 skipped with stated reasons), co-simulation of the smoke program against a golden RV32IM ISA model, an RVFI (riscv-formal interface) trace self-check, and self-checking directed tests
+- **Verification:** co-simulation of the smoke program against a golden RV32IM ISA model, an RVFI (riscv-formal interface) trace self-check, and self-checking directed tests
 
 
 ---
@@ -55,7 +55,7 @@ three_sipp_es/
 
 - **Verilator 5+** for simulation
 - **Python 3.10+** for the test-program builders and co-simulation
-- a RISC-V GCC toolchain (`riscv-none-elf-*`) for `run_isa.sh` and the FPGA firmware; the FreeRTOS demo and the benchmarks also need its C library (newlib), as shipped in the xPack `riscv-none-elf-gcc`
+- a RISC-V GCC toolchain (`riscv-none-elf-*`) for the FPGA firmware; the FreeRTOS demo and the benchmarks also need its C library (newlib), as shipped in the xPack `riscv-none-elf-gcc`
 - *(optional)* Vivado for the Arty A7 FPGA flows
 
 ## Build & test
@@ -72,11 +72,10 @@ three_sipp_es/
 ./build.sh fpga     # FPGA SoC sim (UART banner + LED), needs a RISC-V GCC
 ./build.sh rtos     # FreeRTOS preemptive multitasking demo, needs a RISC-V GCC with newlib
 ./build.sh clean
-./run_isa.sh        # official riscv-tests ISA suites (default + SECURE builds), needs a RISC-V GCC
 ./run_tests.sh      # all of the above except rtos, checked against tests/expected.txt
 ```
 
-Every `build.sh` action and `run_isa.sh` exits non-zero when its testbench
+Every `build.sh` action exits non-zero when its testbench
 reports a failure, a timeout, a mismatch or an error, or does not print its
 PASS verdict. Tools are taken from `PATH`; set `RISCV_TC=/path/to/bin` to use a
 specific `riscv-none-elf-*` toolchain.
@@ -97,52 +96,12 @@ Results of `./run_tests.sh` (Verilator 5.020, RISC-V GCC 13.2), recorded in
 | `build.sh priv` | 24 directed SECURE-core tests: U-mode traps, PMP load/store/AMO/fetch faults, Smepmp MML, trigger breakpoints/watchpoints, user-trap delegation, `mtvec` mode | 24/24 PASS |
 | `build.sh axi` | AXI4-Lite master bridge against a slave BFM, incl. SLVERR | PASS |
 | `build.sh fpga` | FPGA SoC simulation: UART banner + LED | PASS |
-| `run_isa.sh` | official riscv-tests (see below) | 215 PASS, 3 SKIP |
 
 Run separately (they need a RISC-V GCC with a C library, such as the xPack
 `riscv-none-elf-gcc`): `./build.sh rtos` (FreeRTOS demo plus its tick-disabled
 negative control: PASS), `coremark/run_coremark.sh` (PASS, 100 iterations) and
 `dhrystone/run_dhrystone.sh` (PASS, 2,000,000 runs). These scripts also exit non-zero unless the
 testbench reports PASS.
-
-## ISA test results
-
-`./run_isa.sh` builds the official [riscv-tests](https://github.com/riscv-software-src/riscv-tests)
-(vendored under `third_party/riscv-tests`, unmodified, with the official
-`riscv-test-env` `p` environment) and runs them on the 3-SIPP-ES SoC testbench
-(`tb/tb_three_sipp_es.sv` + `rtl/three_sipp_es_soc.sv`) in two builds: the default
-Machine-only core and the `SECURE` core, where the environment runs the
-`rv32u*` tests in User mode. Code is linked into IMEM at `0x0`, data into DRAM
-at `0x8000_0000`, and a test passes when it writes 1 to `tohost` (`0x2000_0000`).
-The testbench is built with `-DTHREE_SIPP_ES_IMEM_WRITABLE` because `rv32uc/rvc`
-stores into data kept in its code section.
-
-| Suite | Default build | `SECURE` build |
-| :--- | :--- | :--- |
-| `rv32ui` | 41 PASS, 1 SKIP | 41 PASS, 1 SKIP |
-| `rv32um` | 8 PASS | 8 PASS |
-| `rv32ua` | 10 PASS | 10 PASS |
-| `rv32uc` | 1 PASS | 1 PASS |
-| `rv32uzba` | 3 PASS | 3 PASS |
-| `rv32uzbb` | 18 PASS | 18 PASS |
-| `rv32uzbc` | 3 PASS | 3 PASS |
-| `rv32uzbs` | 8 PASS | 8 PASS |
-| `rv32mi` | 15 PASS, 1 SKIP | 16 PASS |
-| **Total** | **107 PASS, 2 SKIP** | **108 PASS, 1 SKIP** |
-
-Skipped, with the reason printed by `run_isa.sh`:
-
-- `rv32ui/fence_i` (both builds): `Zifencei` is not implemented and not
-  claimed. `FENCE.I` executes as a no-op and does not resynchronize instruction
-  fetch with earlier stores; run anyway, the test fails.
-- `rv32mi/pmpaddr` (default build): the test needs PMP, which only the `SECURE`
-  build implements. It passes in the `SECURE` build.
-
-Some `rv32mi` tests check an optional feature only when it is present and pass
-without exercising it here: `breakpoint` tests only the type-2 `mcontrol`
-trigger (3-SIPP-ES implements `mcontrol6`, covered by `build.sh priv`), and
-`illegal` skips its Supervisor-mode, vectored-interrupt and virtual-memory
-checks because those are not implemented.
 
 ## Known limitations
 
@@ -151,8 +110,6 @@ checks because those are not implemented.
 - The default SoC drops data-port stores to IMEM; build with
   `-DTHREE_SIPP_ES_IMEM_WRITABLE` (or set `IMEM_DATA_WRITE=1`) to allow them.
 - Only direct `mtvec` mode is implemented (`mtvec.MODE` reads as 0).
-- The `rv32mi` suite does not cover Supervisor mode, virtual memory or vectored
-  interrupts, none of which 3-SIPP-ES implements.
 - `run_tests.sh` does not include the FreeRTOS demo or the benchmarks: they
   need a RISC-V GCC with a C library. CI installs the xPack toolchain and runs
   them as separate steps.

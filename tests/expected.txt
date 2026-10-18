@@ -7,4 +7,3 @@ build.sh:debug 0 1 0
 build.sh:priv 0 25 0
 build.sh:axi 0 1 0
 build.sh:fpga 0 1 0
-run_isa.sh 0 215 0

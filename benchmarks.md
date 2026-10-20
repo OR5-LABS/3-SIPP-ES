@@ -1,6 +1,6 @@
 # Benchmark Reports
 
-Detailed results from running CoreMark and Dhrystone 2.1 on the 3-SIP-ESR core. Measurements are taken in Verilator simulation at a 100 MHz equivalent clock. The Arty A7 board scripts run the same programs on physical hardware at 25 MHz.
+Detailed results from running CoreMark and Dhrystone 2.1 on the 3-SIPP-ESR core. Measurements are taken in Verilator simulation at a 100 MHz equivalent clock. The Arty A7 board scripts run the same programs on physical hardware at 25 MHz.
 
 Cycle counts are extracted directly from the benchmark output printed over the UART console. Per-second and per-MHz figures are derived from those cycle counts.
 

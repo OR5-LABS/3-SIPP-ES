@@ -7,7 +7,7 @@
       "gcc": "riscv64-unknown-elf-gcc (13.2.0-11ubuntu1+12) 13.2.0",
       "python": "3.12.3"
     },
-    "architecture": "3-SIP-ESR RV32IMAC(+B, Zcb)"
+    "architecture": "3-SIPP-ESR RV32IMAC(+B, Zcb)"
   },
   "unsupported_features": [
     {

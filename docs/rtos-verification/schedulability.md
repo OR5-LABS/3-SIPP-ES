@@ -1,14 +1,14 @@
-# Schedulability Analysis & Stress Verification: 3-SIP-ESR Core
+# Schedulability Analysis & Stress Verification: 3-SIPP-ESR Core
 
 **Document Version:** 1.0  
-**Target Platform:** 3-SIP-ESR Core + FreeRTOS Preemptive Kernel  
+**Target Platform:** 3-SIPP-ESR Core + FreeRTOS Preemptive Kernel  
 **Date:** 2026-10-18  
 
 ---
 
 ## 1. Task Model and Workload Definitions
 
-The schedulability of the 3-SIP-ESR processor was analyzed under a classical fixed-priority preemptive uniprocessor model with priority-inheritance mutexes and tick interrupt interference.
+The schedulability of the 3-SIPP-ESR processor was analyzed under a classical fixed-priority preemptive uniprocessor model with priority-inheritance mutexes and tick interrupt interference.
 
 ### 1.1 Synthetic Workload Parameters
 

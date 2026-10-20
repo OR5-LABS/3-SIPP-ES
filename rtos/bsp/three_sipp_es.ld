@@ -1,7 +1,7 @@
 /* ==========================================================================
- * three_sipp_es.ld -- Linker script for the 3-SIP-ESR FreeRTOS BSP.
+ * three_sipp_es.ld -- Linker script for the 3-SIPP-ESR FreeRTOS BSP.
  *
- * 3-SIP-ESR SoC memory map (see three_sipp_es_soc.sv):
+ * 3-SIPP-ESR SoC memory map (see three_sipp_es_soc.sv):
  *   IMEM : 0x0000_0000, 32 KB (8192 words) -- combinational-read program ROM.
  *          Only IMEM is loaded from the +IMEM=<hex> plusarg, so ALL bytes that
  *          must exist at reset (text, rodata, and the *load image* of .data)

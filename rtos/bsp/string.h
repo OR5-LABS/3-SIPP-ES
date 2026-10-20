@@ -1,4 +1,4 @@
-/* Freestanding string.h for 3-SIP-ESR bare-metal RTOS builds */
+/* Freestanding string.h for 3-SIPP-ESR bare-metal RTOS builds */
 #ifndef _FREESTANDING_STRING_H
 #define _FREESTANDING_STRING_H
 

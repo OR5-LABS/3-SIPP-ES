@@ -1,4 +1,4 @@
-// 3-SIP-ESR FPGA source list for arty_a7 (paths relative to this file).
+// 3-SIPP-ESR FPGA source list for arty_a7 (paths relative to this file).
 +incdir+../../rtl/common
 ../../rtl/common/three_sipp_es_pkg.sv
 ../../rtl/common/three_sipp_es_alu.sv

@@ -1,7 +1,7 @@
-# Timing Instrumentation & Response-Time Analysis: 3-SIP-ESR Core
+# Timing Instrumentation & Response-Time Analysis: 3-SIPP-ESR Core
 
 **Document Version:** 1.0  
-**Target Platform:** 3-SIP-ESR (RV32IMAC + B, Zcb)  
+**Target Platform:** 3-SIPP-ESR (RV32IMAC + B, Zcb)  
 **Date:** 2026-10-18  
 
 ---
@@ -10,7 +10,7 @@
 
 To quantify real-time behavior without distorting execution semantics, minimally invasive cycle-accurate software probes were embedded using the RISC-V `mcycle` counter CSR.
 
-In the 3-SIP-ESR core, `mcycle` increments unconditionally on every clock cycle. Inline assembly macros read `mcycle` with zero function-call overhead:
+In the 3-SIPP-ESR core, `mcycle` increments unconditionally on every clock cycle. Inline assembly macros read `mcycle` with zero function-call overhead:
 ```c
 static inline uint32_t get_cycle_count( void )
 {
@@ -61,7 +61,7 @@ Machine-readable JSON data is captured in `rtos/timing_results.json`.
    * Empirical testing only covers the specific execution paths, register contents, and instruction alignments exercised by the test inputs.
    * Multi-cycle operations (e.g., non-restoring divider `three_sipp_es_muldiv.sv` requiring up to 34 cycles for division) can introduce data-dependent variations.
    * Bus contention, flash/SRAM wait states (on FPGA), and asynchronous interrupts striking during multi-word memory accesses can lengthen pipeline stalls beyond the observed 681-cycle window.
-2. **Sources of Jitter in 3-SIP-ESR:**
+2. **Sources of Jitter in 3-SIPP-ESR:**
    * **Instruction Multi-cycle Execution:** If an interrupt arrives while the core is executing a multi-cycle `DIV`/`REMU` or waiting on a multi-beat bus transfer, `take_irq` cannot commit until the execute stage is non-frozen.
    * **Branch Prediction Misprediction Penalty:** Flushing the 3-stage pipeline introduces a 2-cycle penalty.
 3. **Formal Requirement for Hard Real-Time Certification:**

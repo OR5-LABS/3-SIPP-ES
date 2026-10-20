@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Automated RISC-V Architectural Compliance Test Runner for 3-SIP-ESR.
+"""Automated RISC-V Architectural Compliance Test Runner for 3-SIPP-ESR.
 
 Runs official RISC-V International architectural compliance tests across:
   - RV32I (Base integer instruction set)
@@ -109,7 +109,7 @@ def get_march(suite_name: str) -> str:
     return "rv32i_zicsr"
 
 
-# 3-SIP-ESR implements hardware misaligned load/store support (hw_data_misaligned_support=True).
+# 3-SIPP-ESR implements hardware misaligned load/store support (hw_data_misaligned_support=True).
 # In the RISC-V Arch Test privilege suite, the upstream reference files assume
 # hw_data_misaligned_support=False (trap with mcause 4/6).
 # For cores with hardware misaligned support, the loads/stores complete natively
@@ -302,7 +302,7 @@ def main():
         sys.exit(f"No tests found for suite={args.suite}, test={args.test}")
 
     print(f"\n{BOLD}{CYAN}======================================================================{RESET}")
-    print(f"{BOLD}{CYAN}   3-SIP-ESR RISC-V Architectural Compliance Verification Suite       {RESET}")
+    print(f"{BOLD}{CYAN}   3-SIPP-ESR RISC-V Architectural Compliance Verification Suite       {RESET}")
     print(f"{BOLD}{CYAN}======================================================================{RESET}")
     print(f"Toolchain : {TOOLS['gcc']}")
     print(f"Simulator : {SIM_BIN}")

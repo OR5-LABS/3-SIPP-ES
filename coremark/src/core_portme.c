@@ -1,4 +1,4 @@
-/* core_portme.c — 3-SIP-ESR bare-metal CoreMark port */
+/* core_portme.c — 3-SIPP-ESR bare-metal CoreMark port */
 /* Include coremark.h (which includes core_portme.h) so secs_ret is available */
 #include "coremark.h"
 #include <stdarg.h>

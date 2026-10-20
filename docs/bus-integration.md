@@ -1,6 +1,6 @@
 # Bus Integration
 
-3-SIP-ESR presents a simple native memory interface out of the core, and ships an
+3-SIPP-ESR presents a simple native memory interface out of the core, and ships an
 **AXI4-Lite** bridge for dropping the core into a standard SoC fabric.
 
 ## Native interface
@@ -38,5 +38,5 @@ Expected output:
 AXI: PASS
 ```
 
-Use the AXI bridge to attach 3-SIP-ESR to an AXI interconnect, or keep the native
+Use the AXI bridge to attach 3-SIPP-ESR to an AXI interconnect, or keep the native
 interface for a tightly-coupled memory subsystem.

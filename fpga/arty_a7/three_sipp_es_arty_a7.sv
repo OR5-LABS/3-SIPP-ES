@@ -1,5 +1,5 @@
 // ============================================================================
-// three_sipp_es_arty_a7.sv — Digilent Arty A7-100T top for the 3-SIP-ESR SoC.
+// three_sipp_es_arty_a7.sv — Digilent Arty A7-100T top for the 3-SIPP-ESR SoC.
 // Device: xc7a100tcsg324-1.  Runs directly at the board 100 MHz oscillator.
 //
 //   CLK100        E3    ck_rst  C2 (active-low)

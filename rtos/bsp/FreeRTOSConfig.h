@@ -1,7 +1,7 @@
 /* ==========================================================================
- * FreeRTOSConfig.h -- 3-SIP-ESR BSP.
+ * FreeRTOSConfig.h -- 3-SIPP-ESR BSP.
  *
- * Targets the 3-SIP-ESR SoC CLINT for the tick:
+ * Targets the 3-SIPP-ESR SoC CLINT for the tick:
  *   CLINT base   = 0x0200_0000
  *   mtime        = 0x0200_BFF8
  *   mtimecmp     = 0x0200_4000

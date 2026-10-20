@@ -1,6 +1,6 @@
 # Traps & Interrupts
 
-3-SIP-ESR implements **precise** traps: when an instruction faults, no later
+3-SIPP-ESR implements **precise** traps: when an instruction faults, no later
 instruction has changed architectural state, and the trapping instruction's PC
 is recorded in `mepc` (or `uepc` for a delegated user trap).
 

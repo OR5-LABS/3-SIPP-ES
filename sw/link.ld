@@ -1,4 +1,4 @@
-/* link.ld — 3-SIP-ESR bare-metal layout.
+/* link.ld — 3-SIPP-ESR bare-metal layout.
    .text/.rodata live in IMEM (loaded from the hex). .bss + stack live in DRAM
    (zeroed by the testbench at reset). No initialized .data is used by the test
    programs, so there is no flash->RAM copy and the loadable image is just the

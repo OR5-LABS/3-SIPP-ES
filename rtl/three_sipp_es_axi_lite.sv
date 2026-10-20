@@ -1,7 +1,7 @@
 // ============================================================================
-// three_sipp_es_axi_lite.sv — AXI4-Lite MASTER bridge for the 3-SIP-ESR data port.
+// three_sipp_es_axi_lite.sv — AXI4-Lite MASTER bridge for the 3-SIPP-ESR data port.
 //
-// E-class-grade cores ship a standard bus. This wrapper adapts 3-SIP-ESR's simple
+// E-class-grade cores ship a standard bus. This wrapper adapts 3-SIPP-ESR's simple
 // request/response memory interface (the same addr/wdata/byte-strobe shape as the
 // core's dmem port — dmem_addr/dmem_be/dmem_wdata/dmem_rdata plus dmem_re/dmem_we,
 // here presented as a valid/ready handshake so a single-cycle core can be

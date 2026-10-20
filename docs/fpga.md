@@ -1,6 +1,6 @@
 # FPGA Bring-up
 
-The `fpga/` directory contains a small FPGA SoC wrapper around 3-SIP-ESR plus
+The `fpga/` directory contains a small FPGA SoC wrapper around 3-SIPP-ESR plus
 board constraints, for running the core on real hardware.
 
 ## What's included
@@ -38,6 +38,6 @@ banner.
 
 ## Firmware
 
-The bring-up firmware lives in [`sw/`](https://github.com/OR5-LABS/3-SIP-ESR/tree/main/sw)
+The bring-up firmware lives in [`sw/`](https://github.com/OR5-LABS/3-SIPP-ESR/tree/main/sw)
 (`fpga_hello.S`, linker script, and a `build_fpga_hello.sh` helper). Replace it
 with your own image to run application code on the board.

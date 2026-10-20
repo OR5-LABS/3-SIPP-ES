@@ -30,7 +30,7 @@ fi
 FLAGS="-O2 -march=rv32im -mabi=ilp32 -nostdlib -fno-pic -Wl,--no-relax -fno-builtin"
 INCLUDES="-I."
 
-echo "Compiling CoreMark for 3-SIP-ESR..."
+echo "Compiling CoreMark for 3-SIPP-ESR..."
 
 ITERATIONS="${1:-100}"
 LDSCRIPT="../../sw/link.ld"

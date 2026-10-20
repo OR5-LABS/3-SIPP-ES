@@ -62,6 +62,8 @@ cd dhrystone && ./run_dhrystone.sh              # sim
 cd dhrystone && ./run_dhrystone_arty_a7.sh      # Arty A7 @ 25 MHz
 ```
 
+Detailed results, compiler flags, and methodology: **[benchmarks.md](benchmarks.md)**
+
 ---
 
 ## Requirements

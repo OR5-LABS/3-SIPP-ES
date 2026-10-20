@@ -1,7 +1,7 @@
 // ============================================================================
-// three_sipp_es_pkg.sv — Shared types, opcodes & CSR constants for 3-SIPP-ES.
+// three_sipp_es_pkg.sv — Shared types, opcodes & CSR constants for 3-SIP-ESR.
 //
-// 3-SIPP-ES is a compact, high-performance 3-stage in-order RV32IMAC core.
+// 3-SIP-ESR is a compact, high-performance 3-stage in-order RV32IMAC core.
 // This package holds the datapath types used across the core and its leaf cells.
 // ============================================================================
 `ifndef THREE_SIPP_ES_PKG_SV

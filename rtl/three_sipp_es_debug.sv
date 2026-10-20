@@ -1,5 +1,5 @@
 // ============================================================================
-// three_sipp_es_debug.sv — RISC-V External Debug (Debug Spec 0.13.2) for 3-SIPP-ES.
+// three_sipp_es_debug.sv — RISC-V External Debug (Debug Spec 0.13.2) for 3-SIP-ESR.
 //
 // Provides what PicoRV32 (only a partial/custom debug port) and a base SERV do
 // not ship by default: a *standard* Debug Transport Module (JTAG DTM) + Debug

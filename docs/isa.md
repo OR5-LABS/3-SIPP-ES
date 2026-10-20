@@ -1,6 +1,6 @@
 # Instruction Set
 
-3-SIPP-ES implements **RV32IMAC** plus the `B` bit-manipulation and `Zcb`
+3-SIP-ESR implements **RV32IMAC** plus the `B` bit-manipulation and `Zcb`
 code-size extensions.
 
 ## Base and standard extensions

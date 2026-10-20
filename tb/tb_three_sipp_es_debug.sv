@@ -1,6 +1,6 @@
 // ============================================================================
 // tb_three_sipp_es_debug.sv — self-checking JTAG / RISC-V Debug-Module testbench for
-// the 3-stage 3-SIPP-ES core (pipelined drain-to-halt). Bit-bangs the JTAG TAP:
+// the 3-stage 3-SIP-ESR core (pipelined drain-to-halt). Bit-bangs the JTAG TAP:
 //   1. IDCODE ("TAKS")   2. dmactive+haltreq → allhalted
 //   3. GPR x1 (counter progressing)   4. CSR misa (0x40001107) + dpc
 //   5. GPR x31 wr/rd   6. SBA mem wr/rd   7. resume → counter advanced

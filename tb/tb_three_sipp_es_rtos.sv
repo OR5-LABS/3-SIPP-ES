@@ -3,7 +3,7 @@
 //
 //   vvp sim/tb_three_sipp_es_rtos +IMEM=rtos/build/rtos.hex     [+MAXCYC=<n>]
 //
-// Runs a FreeRTOS image on the 3-SIPP-ES SoC. The SoC UART $writes every TX
+// Runs a FreeRTOS image on the 3-SIP-ESR SoC. The SoC UART $writes every TX
 // byte to stdout, so the console transcript is captured verbatim. The run
 // ends on a store to tohost (0x2000_0000):
 //   tohost == 1  -> [TB] PASS   (demo reached [DONE]ok)

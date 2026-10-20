@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # ==========================================================================
-# build_rtos.sh -- build the 3-SIPP-ES FreeRTOS demo into a $readmemh IMEM hex.
+# build_rtos.sh -- build the 3-SIP-ESR FreeRTOS demo into a $readmemh IMEM hex.
 #
-# Compiles the FreeRTOS kernel + RISC-V port + 3-SIPP-ES BSP + demo app, links
+# Compiles the FreeRTOS kernel + RISC-V port + 3-SIP-ESR BSP + demo app, links
 # with bsp/three_sipp_es.ld, and emits build/rtos.hex (one 32-bit word per line).
 # ==========================================================================
 set -euo pipefail
@@ -116,7 +116,7 @@ esac
 
 mkdir -p build
 
-# rv32imac (3-SIPP-ES is RV32IMAC); ilp32 ABI; freestanding; no relax so gp/la
+# rv32imac (3-SIP-ESR is RV32IMAC); ilp32 ABI; freestanding; no relax so gp/la
 # and the .data LMA stay put for our hand-rolled crt0.
 CFLAGS="-march=rv32imac_zicsr_zifencei -mabi=ilp32 -Os -g \
   -ffunction-sections -fdata-sections -fno-builtin -fno-pic \

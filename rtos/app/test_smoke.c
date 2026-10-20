@@ -1,7 +1,7 @@
 /* ==========================================================================
  * test_smoke.c -- Stage 2: FreeRTOS Basic Functionality Verification Suite.
  *
- * Verifies core RTOS requirements on 3-SIPP-ES:
+ * Verifies core RTOS requirements on 3-SIP-ESR:
  *   1. Kernel startup & scheduler operation.
  *   2. Multiple task creation and concurrent execution.
  *   3. Strict priority-based preemption.

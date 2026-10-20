@@ -1,5 +1,5 @@
 # ============================================================================
-# Makefile for 3-SIPP-ES RISC-V Architectural Compliance Verification
+# Makefile for 3-SIP-ESR RISC-V Architectural Compliance Verification
 #
 # Clones official RISC-V International arch-test suite on demand and runs tests.
 # ============================================================================
@@ -29,7 +29,7 @@ clone_suite:
 	fi
 
 sim:
-	@echo "==> Building 3-SIPP-ES Verilator architectural test simulator..."
+	@echo "==> Building 3-SIP-ESR Verilator architectural test simulator..."
 	@cd $(REPO_ROOT) && ./build.sh arch-sim
 
 test: clone_suite sim

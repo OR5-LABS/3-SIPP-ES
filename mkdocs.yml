@@ -1,7 +1,7 @@
-site_name: 3-SIPP-ES
+site_name: 3-SIP-ESR
 site_description: A compact, high-performance 3-stage pipelined RV32IMAC processor core
-site_author: 3-SIPP-ES Contributors
-copyright: Copyright &copy; 2026 3-SIPP-ES Contributors
+site_author: 3-SIP-ESR Contributors
+copyright: Copyright &copy; 2026 3-SIP-ESR Contributors
 
 theme:
   name: material

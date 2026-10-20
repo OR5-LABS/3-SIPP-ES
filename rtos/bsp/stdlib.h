@@ -1,4 +1,4 @@
-/* Freestanding stdlib.h for 3-SIPP-ES bare-metal RTOS builds */
+/* Freestanding stdlib.h for 3-SIP-ESR bare-metal RTOS builds */
 #ifndef _FREESTANDING_STDLIB_H
 #define _FREESTANDING_STDLIB_H
 

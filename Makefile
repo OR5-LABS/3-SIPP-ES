@@ -1,5 +1,5 @@
 # ============================================================================
-# 3-SIPP-ES Top-Level Makefile
+# 3-SIP-ESR Top-Level Makefile
 # ============================================================================
 
 SHELL := /usr/bin/env bash
@@ -52,7 +52,7 @@ distclean: clean
 	$(MAKE) -C arch-test distclean
 
 help:
-	@echo "3-SIPP-ES Build System"
+	@echo "3-SIP-ESR Build System"
 	@echo "Targets:"
 	@echo "  make sim        - Run baseline smoke test in Verilator"
 	@echo "  make arch       - Clone and run official RISC-V Architectural Compliance suite"

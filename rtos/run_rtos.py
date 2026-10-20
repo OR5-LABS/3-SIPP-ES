@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # ==========================================================================
-# run_rtos.py -- Self-checking 3-SIPP-ES FreeRTOS demo harness.
+# run_rtos.py -- Self-checking 3-SIP-ESR FreeRTOS demo harness.
 #
-# Runs the compiled FreeRTOS image (rtos.hex) on the 3-SIPP-ES sim, captures
+# Runs the compiled FreeRTOS image (rtos.hex) on the 3-SIP-ESR sim, captures
 # the UART console transcript, and ASSERTS the observable RTOS behaviour:
 #
 #   1. Boot banner.

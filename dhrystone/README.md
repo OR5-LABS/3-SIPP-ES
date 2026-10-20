@@ -1,6 +1,6 @@
-# Dhrystone on 3-SIPP-ES
+# Dhrystone on 3-SIP-ESR
 
-This directory contains a bare-metal **Dhrystone 2.1** port for the **3-SIPP-ES RV32IMC** processor. Two run flows are provided: RTL simulation (Verilator) and FPGA hardware (Arty A7-100T).
+This directory contains a bare-metal **Dhrystone 2.1** port for the **3-SIP-ESR RV32IMC** processor. Two run flows are provided: RTL simulation (Verilator) and FPGA hardware (Arty A7-100T).
 
 ## Toolchain & Environment
 
@@ -17,7 +17,7 @@ The benchmark is compiled for a 32-bit RISC-V target with the `IMC` extensions (
 
 ## Performance Results
 
-3-SIPP-ES achieves a score of **1.64 DMIPS/MHz** across both simulation and FPGA execution.
+3-SIP-ESR achieves a score of **1.64 DMIPS/MHz** across both simulation and FPGA execution.
 
 ### Simulation
 - **Environment**: Verilator testbench (`tb_three_sipp_es`)
@@ -120,4 +120,4 @@ UART settings: **115200-8N1**. On Linux the UART device is typically
 | `read_mtime()` | Reads `mtime[31:0]` from CLINT at `0x0200_BFF8` |
 
 The firmware computes elapsed cycles as `mtime_end − mtime_start` (mtime ticks
-at `CLK_FREQ_HZ` in the 3-SIPP-ES SoC) and derives DMIPS/MHz from there.
+at `CLK_FREQ_HZ` in the 3-SIP-ESR SoC) and derives DMIPS/MHz from there.

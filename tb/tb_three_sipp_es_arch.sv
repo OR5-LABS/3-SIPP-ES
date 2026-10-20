@@ -1,5 +1,5 @@
 // ============================================================================
-// tb_three_sipp_es_arch.sv — Architectural compliance testbench for 3-SIPP-ES.
+// tb_three_sipp_es_arch.sv — Architectural compliance testbench for 3-SIP-ESR.
 //
 //   sim/tb_three_sipp_es_arch +IMEM=<hex> +SIGNATURE=<sig_out> \
 //                             +SIG_BEGIN=0x... +SIG_END=0x...

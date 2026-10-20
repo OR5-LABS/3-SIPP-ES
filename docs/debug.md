@@ -1,6 +1,6 @@
 # Debug
 
-3-SIPP-ES implements **RISC-V External Debug**: a JTAG Transport Module (DTM)
+3-SIP-ESR implements **RISC-V External Debug**: a JTAG Transport Module (DTM)
 plus a Debug Module (DM) that let an external debugger halt the core and inspect
 or modify its state. Hardware triggers add self-hosted breakpoints and
 watchpoints.

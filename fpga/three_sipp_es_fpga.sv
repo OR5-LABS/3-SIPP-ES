@@ -1,8 +1,8 @@
 // ============================================================================
-// three_sipp_es_fpga.sv — Synthesizable FPGA SoC for 3-SIPP-ES (RV32IMC, 3-stage).
+// three_sipp_es_fpga.sv — Synthesizable FPGA SoC for 3-SIP-ESR (RV32IMC, 3-stage).
 //
 // Same board-independent SoC pattern as three_sipp_es_fpga, minus the debug module
-// (3-SIPP-ES has no DM yet). Unified distributed-RAM (async read, $readmemh init)
+// (3-SIP-ESR has no DM yet). Unified distributed-RAM (async read, $readmemh init)
 // + reused three_sipp_es_uart + LEDs + minimal CLINT + tohost.
 //
 // Address map:

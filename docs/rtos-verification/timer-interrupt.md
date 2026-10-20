@@ -1,14 +1,14 @@
-# Timer & Interrupt Integration Report: 3-SIPP-ES Core
+# Timer & Interrupt Integration Report: 3-SIP-ESR Core
 
 **Document Version:** 1.0  
-**Target Architecture:** 3-SIPP-ES (RV32IMAC + B, Zcb)  
+**Target Architecture:** 3-SIP-ESR (RV32IMAC + B, Zcb)  
 **Date:** 2026-10-18  
 
 ---
 
 ## 1. Overview and Hardware Topology
 
-The 3-SIPP-ES processor accepts three standard RISC-V Machine-mode interrupt sources:
+The 3-SIP-ESR processor accepts three standard RISC-V Machine-mode interrupt sources:
 
 | Interrupt Signal | RISC-V IRQ Name | MCAUSE | Source Hardware Block | SoC Implementation Status |
 |:---|:---|:---:|:---|:---:|

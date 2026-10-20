@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Co-simulation harness: diff the 3-SIPP-ES RTL retire trace against the
+"""Co-simulation harness: diff the 3-SIP-ESR RTL retire trace against the
 golden RV32IM ISA model, instruction by instruction.
 
   python tools/cosim.py --hex programs/build/smoke.hex \

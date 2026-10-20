@@ -1,7 +1,7 @@
 /* ==========================================================================
- * main.c -- 3-SIPP-ES FreeRTOS demo.
+ * main.c -- 3-SIP-ESR FreeRTOS demo.
  *
- * Proves a REAL preemptive RTOS running on the 3-SIPP-ES core:
+ * Proves a REAL preemptive RTOS running on the 3-SIP-ESR core:
  *   - Two tasks context-switching under PREEMPTIVE CLINT timer ticks.
  *   - A producer/consumer QUEUE (Producer -> Consumer, integer payloads).
  *   - A counting SEMAPHORE (Producer gives, Consumer takes).
@@ -9,7 +9,7 @@
  *     never blocks voluntarily), proving the tick -- not cooperative yielding
  *     -- drives the scheduler.
  *
- * All console output goes through the 3-SIPP-ES UART; the sim captures it. The
+ * All console output goes through the 3-SIP-ESR UART; the sim captures it. The
  * Python harness (run_rtos.py) asserts the interleaving + queue values.
  *
  * Transcript vocabulary (stable, machine-checkable):

@@ -1,6 +1,6 @@
 # Verification
 
-3-SIPP-ES is verified with a layered flow — from quick self-checking smoke tests
+3-SIP-ESR is verified with a layered flow — from quick self-checking smoke tests
 to lock-step co-simulation against an independent golden model and a formal
 interface.
 

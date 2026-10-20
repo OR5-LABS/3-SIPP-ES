@@ -30,7 +30,7 @@ cd dhrystone && ./run_dhrystone_arty_a7.sh      # Arty A7 @ 25 MHz
 
 CoreMark is an industry-standard benchmark designed to stress integer computation — it exercises list processing, matrix operations, and finite-state machine transitions without touching floating point. The score is normalized to clock frequency so cores can be compared regardless of how fast they are clocked.
 
-The port uses the bare-metal `barebones` configuration, compiled at `-O3` with the xPack `riscv-none-elf-gcc` toolchain. 100 iterations are run to meet the minimum valid run requirement.
+The port uses the bare-metal `barebones` configuration, compiled at `-O2` with the `riscv-none-elf-gcc` toolchain. 100 iterations are run to meet the minimum valid run requirement.
 
 | Metric | Simulation (100 MHz eq.) |
 | :--- | :---: |
@@ -41,8 +41,8 @@ The port uses the bare-metal `barebones` configuration, compiled at `-O3` with t
 
 ### Compiler flags
 
-```
--O3 -march=rv32imac_zicsr_zcb -mabi=ilp32 -fno-common -ffunction-sections -fdata-sections
+```text
+-O2 -march=rv32im -mabi=ilp32 -nostdlib -fno-pic -Wl,--no-relax -fno-builtin
 ```
 
 ---
@@ -63,8 +63,8 @@ The port runs 2,000,000 iterations to reduce measurement noise from the simulati
 
 ### Compiler flags
 
-```
--O3 -march=rv32imac_zicsr_zcb -mabi=ilp32 -fno-common -ffunction-sections -fdata-sections
+```text
+-O2 -march=rv32imc -mabi=ilp32 -nostartfiles -fno-pic -Wl,--no-relax
 ```
 
 ---

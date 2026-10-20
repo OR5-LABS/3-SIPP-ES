@@ -1,6 +1,6 @@
 # Branch Prediction
 
-3-SIPP-ES has a **dynamic branch predictor** in the fetch stage. Because branch
+3-SIP-ESR has a **dynamic branch predictor** in the fetch stage. Because branch
 resolution otherwise costs a pipeline bubble on every taken branch, prediction
 is the single largest contributor to the core's throughput (and the main reason
 it reaches 2.92 CoreMark/MHz, measured with `coremark/run_coremark.sh`).

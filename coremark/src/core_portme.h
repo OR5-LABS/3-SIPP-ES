@@ -1,4 +1,4 @@
-/* core_portme.h — 3-SIPP-ES bare-metal CoreMark port */
+/* core_portme.h — 3-SIP-ESR bare-metal CoreMark port */
 #ifndef CORE_PORTME_H
 #define CORE_PORTME_H
 

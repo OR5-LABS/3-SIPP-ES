@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # ============================================================================
-# 3-SIPP-ES build & test driver (Verilator).
+# 3-SIP-ESR build & test driver (Verilator).
 #
-#   ./build.sh [sim|cosim|rvfi|zcb|trig|debug|priv|axi|rtos|rtos-suite|fpga|clean]
+#   ./build.sh [sim|cosim|rvfi|zcb|trig|debug|priv|axi|rtos|rtos-suite|arch|arch-sim|fpga|clean]
 #
-# 3-SIPP-ES is a 3-stage in-order RV32IMAC(+B, Zcb) core. The datapath leaf
+# 3-SIP-ESR is a 3-stage in-order RV32IMAC(+B, Zcb) core. The datapath leaf
 # cells (ALU / muldiv / regfile / CSR / RVC / immgen / branch / decoder / PMP)
 # live in rtl/common; the core, SoC, UART, AXI4-Lite wrapper and the RISC-V
 # Debug Module live in rtl/.
@@ -59,7 +59,7 @@ mkdir -p sim programs/build
 
 if [[ "$ACTION" == "priv" ]]; then
   # Directed M/U + PMP + Smepmp + HW-trigger + N user-trap tests on a SECURE=1 core.
-  echo "Building 3-SIPP-ES SECURE priv/trigger/N sim..."
+  echo "Building 3-SIP-ESR SECURE priv/trigger/N sim..."
   "$PY" programs/build_priv.py
   "$PY" programs/build_trig.py
   "$PY" programs/build_ntrap.py
@@ -82,11 +82,11 @@ if [[ "$ACTION" == "priv" ]]; then
 fi
 
 if [[ "$ACTION" == "rtos" ]]; then
-  # Port + run a REAL preemptive RTOS (FreeRTOS) on 3-SIPP-ES. Builds the kernel
-  # + RISC-V port + 3-SIPP-ES BSP into an IMEM image, runs it on the SoC sim
+  # Port + run a REAL preemptive RTOS (FreeRTOS) on 3-SIP-ESR. Builds the kernel
+  # + RISC-V port + 3-SIP-ESR BSP into an IMEM image, runs it on the SoC sim
   # (CLINT tick + UART console) and asserts the transcript plus a negative
   # control (tick disabled -> demo stalls). See rtos/run_rtos.py.
-  echo "Building 3-SIPP-ES FreeRTOS demo (positive + negative-control images)..."
+  echo "Building 3-SIP-ESR FreeRTOS demo (positive + negative-control images)..."
   bash rtos/build_rtos.sh
   bash rtos/build_rtos.sh neg
   echo "Running FreeRTOS demo + assertions..."
@@ -95,13 +95,13 @@ if [[ "$ACTION" == "rtos" ]]; then
 fi
 
 if [[ "$ACTION" == "rtos-suite" ]]; then
-  echo "Running comprehensive 3-SIPP-ES FreeRTOS verification suite..."
+  echo "Running comprehensive 3-SIP-ESR FreeRTOS verification suite..."
   VERILATOR="$VRL" "$PY" rtos/run_all.py
   exit $?
 fi
 
 if [[ "$ACTION" == "debug" ]]; then
-  echo "Building 3-SIPP-ES debug (JTAG DM) sim..."
+  echo "Building 3-SIP-ESR debug (JTAG DM) sim..."
   "$VRL" --binary -j 0 -Wno-fatal -Wno-WIDTHEXPAND -Wno-WIDTHTRUNC --trace --timescale 1ns/1ps --Mdir sim -o tb_three_sipp_es_debug -I"$C" -I"$R" \
     "${CELLS[@]}" "$DBG" \
     "$R/three_sipp_es_core.sv" "$R/three_sipp_es_uart.sv" "$R/three_sipp_es_soc.sv" \
@@ -113,7 +113,7 @@ fi
 if [[ "$ACTION" == "axi" ]]; then
   # OPTIONAL AXI4-Lite MASTER bridge — standalone leaf cell + slave-mem BFM tb.
   # The default three_sipp_es_soc + compliance path never instantiate it (unchanged).
-  echo "Building 3-SIPP-ES AXI4-Lite MASTER bridge sim..."
+  echo "Building 3-SIP-ESR AXI4-Lite MASTER bridge sim..."
   "$VRL" --binary -j 0 -Wno-fatal -Wno-WIDTHEXPAND -Wno-WIDTHTRUNC --trace --timescale 1ns/1ps --Mdir sim -o tb_three_sipp_es_axi -I"$C" -I"$R" \
     "$C/three_sipp_es_pkg.sv" "$R/three_sipp_es_axi_lite.sv" tb/tb_three_sipp_es_axi.sv
   run_check '^AXI: PASS' sim/tb_three_sipp_es_axi
@@ -181,4 +181,20 @@ if [[ "$ACTION" == "rvfi" ]]; then
     "$R/three_sipp_es_core.sv" "$R/three_sipp_es_uart.sv" "$R/three_sipp_es_soc.sv" \
     tb/tb_three_sipp_es_rvfi.sv
   run_check '^RVFI: PASS' sim/tb_three_sipp_es_rvfi +IMEM=programs/build/smoke.hex
+fi
+
+if [[ "$ACTION" == "arch-sim" ]]; then
+  echo "Building 3-SIP-ESR RISC-V Architectural Test simulator..."
+  "$VRL" --binary -j 0 -Wno-fatal -Wno-WIDTHEXPAND -Wno-WIDTHTRUNC --timescale 1ns/1ps --Mdir sim -o tb_three_sipp_es_arch -I"$C" -I"$R" \
+    "${CELLS[@]}" "$R/three_sipp_es_core.sv" tb/tb_three_sipp_es_arch.sv
+  exit 0
+fi
+
+if [[ "$ACTION" == "arch" ]]; then
+  echo "Building 3-SIP-ESR RISC-V Architectural Test simulator..."
+  "$VRL" --binary -j 0 -Wno-fatal -Wno-WIDTHEXPAND -Wno-WIDTHTRUNC --timescale 1ns/1ps --Mdir sim -o tb_three_sipp_es_arch -I"$C" -I"$R" \
+    "${CELLS[@]}" "$R/three_sipp_es_core.sv" tb/tb_three_sipp_es_arch.sv
+  echo "Running RISC-V Architectural Compliance Test suite..."
+  "$PY" arch-test/run_arch_test.py
+  exit $?
 fi

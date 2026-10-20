@@ -1,7 +1,7 @@
-# FreeRTOS Verification Baseline Report: 3-SIPP-ES Core
+# FreeRTOS Verification Baseline Report: 3-SIP-ESR Core
 
 **Document Version:** 1.0  
-**Target Core:** 3-SIPP-ES (RV32IMAC + B, Zcb; 3-stage pipeline)  
+**Target Core:** 3-SIP-ESR (RV32IMAC + B, Zcb; 3-stage pipeline)  
 **Date:** 2026-10-18  
 **Baseline Git Commit:** `01d2a9fa31b34fd4c2879b072f39cb5c42710bdf`
 
@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary
 
-This document establishes the reproducible baseline for verifying FreeRTOS support and evaluating real-time capabilities on the **3-SIPP-ES** RISC-V processor.
+This document establishes the reproducible baseline for verifying FreeRTOS support and evaluating real-time capabilities on the **3-SIP-ESR** RISC-V processor.
 
 The core is an in-order, 3-stage (`F -> X -> W`) processor implementing the RV32IMAC ISA plus Bitmanip (`Zba`, `Zbb`, `Zbc`, `Zbs`) and `Zcb`. It features a direct-vectored Machine-mode trap model, a RISC-V standard Core Local Interruptor (CLINT), memory-mapped UART, and debug module.
 

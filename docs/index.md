@@ -1,6 +1,6 @@
-# 3-SIPP-ES
+# 3-SIP-ESR
 
-**3-SIPP-ES** is a compact, high-performance **3-stage pipelined RV32IMAC**
+**3-SIP-ESR** is a compact, high-performance **3-stage pipelined RV32IMAC**
 processor core. It runs a classic in-order fetch / execute / memory-writeback
 pipeline with full result forwarding (no load-use stall) and a
 dynamic branch predictor — giving strong per-clock throughput in a small,
@@ -39,4 +39,4 @@ cores.
 
 ## License
 
-3-SIPP-ES is released under the [MIT License](https://opensource.org/licenses/MIT).
+3-SIP-ESR is released under the [MIT License](https://opensource.org/licenses/MIT).

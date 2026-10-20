@@ -1,6 +1,6 @@
-# FreeRTOS on 3-SIPP-ES: Verification & Reproduction Guide
+# FreeRTOS on 3-SIP-ESR: Verification & Reproduction Guide
 
-This directory contains the FreeRTOS kernel port, Board Support Package (BSP), verification test suites, and test runners for the **3-SIPP-ES** 3-stage in-order RV32IMAC(+B, Zcb) RISC-V processor.
+This directory contains the FreeRTOS kernel port, Board Support Package (BSP), verification test suites, and test runners for the **3-SIP-ESR** 3-stage in-order RV32IMAC(+B, Zcb) RISC-V processor.
 
 ---
 
@@ -57,7 +57,7 @@ python3 rtos/run_stress.py
 | **Stage 2: Smoke Suite** | `app/test_smoke.c`<br>`rtos_smoke.hex` | **8 Core Areas:**<br>1. Kernel initialization & multi-task creation.<br>2. Strict priority-based preemption.<br>3. **Full register state preservation (`s0`–`s11` bit patterns `0x11111111`..`0xCCCCCCCC` preserved across preemption).**<br>4. Queue FIFO communication and full/empty blocking.<br>5. Binary and counting semaphores, direct task notifications.<br>6. Timer tick progression and monotonic delay fidelity (`vTaskDelay`).<br>7. Stack high-water mark validation and safe heap limit rejection (`pvPortMalloc(1MB) == NULL`).<br>8. Repeated rapid context switching (40 ping-pong yields under asynchronous ticks). | **PASS** |
 | **Stage 3: Interrupts** | `app/test_interrupt.c`<br>`rtos_interrupt.hex` | CLINT `mtime` hardware progression, timer wake accuracy, Machine Software Interrupt (`MSIP`, cause `0x80000003`) vectoring and clearing, `vTaskNotifyGiveFromISR()` task unblocking, and 10 rapid competing interrupts under ticks without register or stack corruption. | **PASS** |
 | **Stage 4: Timing** | `app/test_timing.c`<br>`rtos_timing.hex` | Cycle-accurate latency decomposition using RISC-V `mcycle` CSR over 20 iterations. Formally documents distinction between empirical maximums and proven WCET bounds. | **PASS** |
-| **Stage 5: Stress & RTA** | `app/test_stress.c`<br>`rtos_stress.hex` | Fixed-priority preemptive workload ($\tau_1$: $T=10\text{ms}$, $\tau_2$: $T=25\text{ms}$, $\tau_3$: continuous background load) with shared priority-inheritance mutex contention. 0 deadline misses in positive run. **Negative Control (`rtos_stress_neg.hex`):** Injected workload overload reliably triggers and reports 3 deadline misses. | **PASS** |
+| **Stage 5: Stress & RTA** | `app/test_stress.c`<br>`rtos_stress.hex` | Three fixed-priority tasks: task 1 (10 ms period), task 2 (25 ms period), task 3 (continuous background load), with shared priority-inheritance mutex contention. 0 deadline misses in positive run. **Negative Control (`rtos_stress_neg.hex`):** Injected workload overload reliably triggers and reports 3 deadline misses. | **PASS** |
 | **Platform: MEIP** | `rtl/three_sipp_es_soc.sv` | Machine External Interrupt line (`irq_ext`) is tied to `1'b0` in SoC RTL (no PLIC instantiated). | **SKIPPED (UNSUPPORTED)** |
 
 ---
@@ -66,12 +66,12 @@ python3 rtos/run_stress.py
 
 From the Stage 4 cycle-accurate characterization ([`rtos/timing_results.json`](timing_results.json)):
 
-* **Interrupt Latency ($T_{\text{irq}}$):** $63\text{ cycles}$ (deterministic; $\text{min}=63, \text{max}=63, \text{jitter}=0$).
+* **Interrupt Latency:** 63 cycles (deterministic; min=63, max=63, jitter=0).
   * Hardware commit + vector redirect to `mtvec` + FreeRTOS 32-register context save to stack.
-* **Scheduler Latency ($T_{\text{sched}}$):** $316 - 318\text{ cycles}$ ($\mu = 316.2\text{ cycles}, \text{jitter}=2\text{ cycles}$).
+* **Scheduler Latency:** 316–318 cycles (mean=316.2 cycles, jitter=2 cycles).
   * `vTaskNotifyGiveFromISR()` + `vTaskSwitchContext()` + context restore + `mret`.
-* **Task Execution Time ($C_{\text{task}}$):** $293 - 300\text{ cycles}$ ($\mu = 293.4\text{ cycles}$).
-* **End-to-End Event Response ($R_{\text{task}}$):** $672 - 681\text{ cycles}$ ($\mu = 672.6\text{ cycles}, \text{jitter}=9\text{ cycles}$).
+* **Task Execution Time:** 293–300 cycles (mean=293.4 cycles).
+* **End-to-End Event Response:** 672–681 cycles (mean=672.6 cycles, jitter=9 cycles).
 
 ---
 

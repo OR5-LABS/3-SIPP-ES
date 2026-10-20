@@ -1,5 +1,5 @@
 /* ==========================================================================
- * start.S -- 3-SIPP-ES FreeRTOS BSP reset / crt0.
+ * start.S -- 3-SIP-ESR FreeRTOS BSP reset / crt0.
  *
  * Reset entry (@ 0x0). Sets gp/sp, copies .data from its IMEM load image to
  * DRAM, zeroes .bss, installs the FreeRTOS trap vector (mtvec ->

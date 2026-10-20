@@ -1,6 +1,6 @@
 # Configuration Reference
 
-3-SIPP-ES is configured at build time. The most important switch is the `SECURE`
+3-SIP-ESR is configured at build time. The most important switch is the `SECURE`
 configuration; individual features can be included or omitted to trade area for
 capability.
 

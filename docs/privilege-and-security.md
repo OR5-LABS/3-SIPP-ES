@@ -1,6 +1,6 @@
 # Privilege & Security
 
-3-SIPP-ES runs in **Machine mode** by default. The **`SECURE`** configuration
+3-SIP-ESR runs in **Machine mode** by default. The **`SECURE`** configuration
 adds a full privilege split and memory protection, turning the core into a small
 isolation-capable processor suitable for trusted control planes.
 

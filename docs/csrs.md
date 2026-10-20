@@ -1,6 +1,6 @@
 # Control & Status Registers
 
-3-SIPP-ES implements the machine-mode CSRs required for trap handling, timers,
+3-SIP-ESR implements the machine-mode CSRs required for trap handling, timers,
 and identification, plus the user-trap (`N` draft) and protection CSRs in the
 `SECURE` configuration.
 

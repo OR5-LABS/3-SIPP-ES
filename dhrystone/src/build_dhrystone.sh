@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# build_dhrystone.sh — compile Dhrystone 2.1 for 3-SIPP-ES simulation.
+# build_dhrystone.sh — compile Dhrystone 2.1 for 3-SIP-ESR simulation.
 # Usage: ./build_dhrystone.sh [NUMBER_OF_RUNS]
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -35,7 +35,7 @@ LDSCRIPT="${LDSCRIPT:-link.ld}"
 FLAGS="-O2 -march=rv32imc -mabi=ilp32 -nostartfiles -fno-pic -Wl,--no-relax"
 INCLUDES="-I."
 
-echo "Compiling Dhrystone for 3-SIPP-ES (${RUNS} runs)..."
+echo "Compiling Dhrystone for 3-SIP-ESR (${RUNS} runs)..."
 
 "$GCC" $FLAGS $INCLUDES -T "$LDSCRIPT" \
     -DNUMBER_OF_RUNS="${RUNS}" \

@@ -1,5 +1,5 @@
 /*
- * dhry_port.c — Bare-metal RISC-V port for the 3-SIPP-ES SoC.
+ * dhry_port.c — Bare-metal RISC-V port for the 3-SIP-ESR SoC.
  *
  * Provides:
  *   uart_putc()   — write one byte to the UART TX register

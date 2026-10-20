@@ -1,5 +1,5 @@
 // ============================================================================
-// tb_three_sipp_es_axi.sv — self-checking testbench for the 3-SIPP-ES AXI4-Lite MASTER
+// tb_three_sipp_es_axi.sv — self-checking testbench for the 3-SIP-ESR AXI4-Lite MASTER
 // bridge (three_sipp_es_axi_lite). Connects the master to an inline AXI4-Lite
 // slave-memory BFM (a word array that honours WSTRB byte strobes) and drives a
 // sequence of word + sub-word loads/stores THROUGH the five AXI channels

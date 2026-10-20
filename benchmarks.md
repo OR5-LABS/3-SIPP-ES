@@ -1,6 +1,6 @@
 # Benchmark Reports
 
-Detailed results from running CoreMark and Dhrystone 2.1 on the 3-SIPP-ESR core. Measurements are taken in Verilator simulation at a 100 MHz equivalent clock. The Arty A7 board scripts run the same programs on physical hardware at 25 MHz.
+Detailed results from running CoreMark and Dhrystone 2.1 on the 3-SIPP-ESR core. Measurements are taken in Verilator simulation at a 100 MHz equivalent clock.
 
 Cycle counts are extracted directly from the benchmark output printed over the UART console. Per-second and per-MHz figures are derived from those cycle counts.
 
@@ -17,11 +17,8 @@ make          # or: ./build.sh
 Then run the benchmarks:
 
 ```bash
-cd coremark  && ./run_coremark.sh               # simulation
-cd coremark  && ./run_coremark_arty_a7.sh       # Arty A7 @ 25 MHz
-
-cd dhrystone && ./run_dhrystone.sh              # simulation
-cd dhrystone && ./run_dhrystone_arty_a7.sh      # Arty A7 @ 25 MHz
+cd coremark  && ./run_coremark.sh
+cd dhrystone && ./run_dhrystone.sh
 ```
 
 ---
@@ -56,21 +53,21 @@ The port runs 2,000,000 iterations to reduce measurement noise from the simulati
 | Metric | Simulation (100 MHz eq.) |
 | :--- | :---: |
 | Iterations run | 2,000,000 |
-| Cycles per iteration | 338 |
-| Dhrystones / sec (at 100 MHz) | 295,857 |
-| DMIPS (at 100 MHz) | 168.39 |
-| **DMIPS / MHz** | **1.68** |
+| Cycles per iteration | 450 |
+| Dhrystones / sec (at 100 MHz) | 222,222 |
+| DMIPS (at 100 MHz) | 126.48 |
+| **DMIPS / MHz** | **1.26** |
 
 ### Compiler flags
 
 ```text
--O2 -march=rv32imc -mabi=ilp32 -nostartfiles -fno-pic -Wl,--no-relax
+-O2 -march=rv32imc -mabi=ilp32 -nostdlib -fno-pic -Wl,--no-relax
 ```
 
 ---
 
 ## Notes
 
-- Results are from Verilator simulation, which is cycle-accurate. Physical FPGA results at 25 MHz will match in cycle count but differ in wall-clock time.
+- Results are from Verilator simulation, which is cycle-accurate.
 - Neither benchmark uses a data cache or instruction cache — all accesses go to the synchronous single-cycle IMEM and DRAM in the SoC model. A cached configuration would yield significantly higher scores.
-- The DSP48E1 blocks used by the hardware multiplier are reflected in the cycle counts for multiply-heavy routines in both benchmarks.
+- The dedicated hardware multiplier is reflected in the cycle counts for multiply-heavy routines in both benchmarks.

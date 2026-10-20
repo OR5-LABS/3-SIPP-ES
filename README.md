@@ -48,18 +48,16 @@ Enable the secure configuration: `SECURE` RTL parameter or compile-time `-DTHREE
 
 ## Benchmark Metrics
 
-Measured in Verilator simulation (100 MHz equivalent clock). Arty A7 board scripts run at 25 MHz.
+Measured in Verilator simulation (100 MHz equivalent clock).
 
 | Benchmark | Result |
 | :--- | :--- |
 | CoreMark (100 iterations) | **2.92 CoreMark/MHz** |
-| Dhrystone 2.1 (2,000,000 runs) | **1.68 DMIPS/MHz** |
+| Dhrystone 2.1 (2,000,000 runs) | **1.26 DMIPS/MHz** |
 
 ```bash
-cd coremark  && ./run_coremark.sh               # sim
-cd coremark  && ./run_coremark_arty_a7.sh       # Arty A7 @ 25 MHz
-cd dhrystone && ./run_dhrystone.sh              # sim
-cd dhrystone && ./run_dhrystone_arty_a7.sh      # Arty A7 @ 25 MHz
+cd coremark  && ./run_coremark.sh
+cd dhrystone && ./run_dhrystone.sh
 ```
 
 Detailed results, compiler flags, and methodology: **[benchmarks.md](benchmarks.md)**

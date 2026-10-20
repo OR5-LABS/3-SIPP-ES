@@ -52,7 +52,7 @@ Run with `make rtos-suite` or `./build.sh rtos-suite`. Reproduction guide: [`rto
 
 ## Benchmark Results
 
-Measured in Verilator simulation at a 100 MHz equivalent clock. Board scripts target the Arty A7-100T at 25 MHz.
+Measured in Verilator simulation at a 100 MHz equivalent clock.
 
 ### CoreMark
 
@@ -68,7 +68,7 @@ Measured in Verilator simulation at a 100 MHz equivalent clock. Board scripts ta
 | Metric | Value |
 | :--- | :--- |
 | Iterations run | 2,000,000 |
-| Cycles per iteration | 338 |
-| Dhrystones/sec (at 100 MHz) | 295,857 |
-| DMIPS (at 100 MHz) | 168.39 |
-| **DMIPS/MHz** | **1.68** |
+| Cycles per iteration | 450 |
+| Dhrystones/sec (at 100 MHz) | 222,222 |
+| DMIPS (at 100 MHz) | 126.48 |
+| **DMIPS/MHz** | **1.26** |

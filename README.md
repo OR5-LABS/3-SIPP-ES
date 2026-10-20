@@ -1,4 +1,4 @@
-# 3-SIP-ESR
+# 3-SIPP-ESR
 
 A compact, fully verified **RV32IMAC** processor core in synthesizable SystemVerilog. It targets embedded and real-time applications — microcontrollers, smart peripherals, and FPGA soft-cores — that need more performance than a simple multi-cycle core without the area of a full application processor.
 
@@ -192,7 +192,7 @@ Detailed results and reproduction guide: [`rtos/README.md`](rtos/README.md)
 ## Repository Layout
 
 ```
-3-SIP-ESR/
+3-SIPP-ESR/
 ├── Makefile                    top-level build entry point
 ├── build.sh                    fine-grained build & test driver
 ├── run_tests.sh                regression runner (checks against tests/expected.txt)

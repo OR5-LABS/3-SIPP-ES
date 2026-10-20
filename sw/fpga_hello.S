@@ -1,5 +1,5 @@
 # ============================================================================
-# fpga_hello.S — 3-SIP-ESR FPGA bring-up demo (bare-metal, RV32IMC).
+# fpga_hello.S — 3-SIPP-ESR FPGA bring-up demo (bare-metal, RV32IMC).
 #
 # Prints a banner over the UART (0x1000_0000) and blinks the 8 user LEDs
 # (0x2000_1000) in a loop. Self-contained: no .data/.bss, stack at top of the
@@ -48,4 +48,4 @@ puts_done:
 
     .section .rodata
 msg:
-    .asciz "Hello from 3-SIP-ESR on FPGA!\r\n"
+    .asciz "Hello from 3-SIPP-ESR on FPGA!\r\n"

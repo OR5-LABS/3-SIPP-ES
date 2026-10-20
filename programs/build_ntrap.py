@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Hand-assemble directed N-extension (user-trap) tests for 3-SIP-ESR SECURE=1.
+"""Hand-assemble directed N-extension (user-trap) tests for 3-SIPP-ESR SECURE=1.
 
 Emits programs/build/ntrap_<name>.hex. Exit protocol: store 1 -> PASS, else
 FAIL(code) to tohost.

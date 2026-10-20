@@ -1,7 +1,7 @@
 // ============================================================================
 // three_sipp_es_core.sv — RV32IM, 3-stage in-order pipeline (F | X | W).
 //
-// 3-SIP-ESR is a compact, high-performance embedded-class core: a short 3-stage
+// 3-SIPP-ESR is a compact, high-performance embedded-class core: a short 3-stage
 // pipeline with full forwarding and a dynamic branch predictor, in the space of
 // a SHAKTI E-class / ARM Cortex-M-style microcontroller.
 //
@@ -25,7 +25,7 @@ module three_sipp_es_core
   // SECURE=1 adds User privilege mode + an 8-region PMP (M/U memory isolation,
   // SHAKTI-E / Ibex-secure / OpenTitan class). Default 0 keeps the M-mode-only
   // footprint byte-identical, so the shared RV32IMAC compliance build is unchanged
-  // and 3-SIP-ESR stays 61/61.
+  // and 3-SIPP-ESR stays 61/61.
   parameter bit              SECURE    = 1'b0,
   // Dynamic branch prediction (gshare BHT + BTB), ON by default. Halfword-granular
   // (pc[1] in the index) so RVC 4-byte branches at 2-byte-aligned PCs can't alias a
@@ -309,7 +309,7 @@ module three_sipp_es_core
 
   // ---- RV32 'A' (atomics) inline decode (three_sipp_es_decode untouched) ----------
   // AMO opcode 0101111, funct3=010 (word). Address = rs1 (op1); rd = old memory.
-  // No load-use stall needed: 3-SIP-ESR forwards only W->X, and an AMO stays in W
+  // No load-use stall needed: 3-SIPP-ESR forwards only W->X, and an AMO stays in W
   // (frozen for its store beat) while a dependent waits in X — so W->X forwarding
   // delivers the AMO result naturally.
   wire        is_amo     = (fx_instr[6:0]==7'b0101111) && (funct3==3'b010);
@@ -330,7 +330,7 @@ module three_sipp_es_core
 
   // ---- RV32 'N' (user-level trap) URET, inline (three_sipp_es_decode untouched) ----
   // URET = 0x00200073 (funct12=0x002, funct3=0). The shared decoder flags it
-  // illegal (it only knows MRET); 3-SIP-ESR recognises it here when SECURE (the N
+  // illegal (it only knows MRET); 3-SIPP-ESR recognises it here when SECURE (the N
   // overlay below owns the user-trap return). Non-SECURE => stays illegal.
   wire        is_uret = SECURE && (fx_instr == 32'h00200073);
   wire        illegal_eff = (d_illegal && !amo_valid && !is_uret);
@@ -503,7 +503,7 @@ module three_sipp_es_core
   // three_sipp_es_trigger cell (which is NOT in the shared compliance file-list, so
   // adding it would break the byte-identical build), the same mcontrol6 trigger
   // register file + equal-match logic is inlined here, entirely local to
-  // 3-SIP-ESR. It mirrors three_sipp_es_trigger.sv exactly (see that cell's header for
+  // 3-SIPP-ESR. It mirrors three_sipp_es_trigger.sv exactly (see that cell's header for
   // the full mcontrol6 tdata1 layout). Two trigger slots, each selectable as an
   // EXECUTE (PC-match) breakpoint or a LOAD/STORE (address-match) watchpoint.
   // A match with action=1 requests Debug-Mode entry (like ebreak-to-debug);

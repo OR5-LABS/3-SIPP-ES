@@ -1,6 +1,6 @@
-# FreeRTOS on 3-SIP-ESR: Verification & Reproduction Guide
+# FreeRTOS on 3-SIPP-ESR: Verification & Reproduction Guide
 
-This directory contains the FreeRTOS kernel port, Board Support Package (BSP), verification test suites, and test runners for the **3-SIP-ESR** 3-stage in-order RV32IMAC(+B, Zcb) RISC-V processor.
+This directory contains the FreeRTOS kernel port, Board Support Package (BSP), verification test suites, and test runners for the **3-SIPP-ESR** 3-stage in-order RV32IMAC(+B, Zcb) RISC-V processor.
 
 ---
 

@@ -1,7 +1,7 @@
 /* ==========================================================================
  * test_timing.c -- Stage 4: Execution-Time and Response-Time Instrumentation.
  *
- * Measures cycle-accurate timing metrics on 3-SIP-ESR:
+ * Measures cycle-accurate timing metrics on 3-SIPP-ESR:
  *   1. Interrupt Latency: trigger assertion -> ISR handler entry.
  *   2. Scheduler Latency: task unblock in ISR -> task start execution.
  *   3. Task Execution Time: computation start -> computation end.

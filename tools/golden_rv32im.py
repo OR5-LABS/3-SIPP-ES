@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Self-contained RV32IM golden ISA simulator for 3-SIP-ESR.
+"""Self-contained RV32IM golden ISA simulator for 3-SIPP-ESR.
 
 Functional, per-instruction reference. Loads the same $readmemh image the RTL
 testbench runs and emits a retire trace in the exact format tb_three_sipp_es.sv

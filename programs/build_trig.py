@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Hand-assemble directed HW-trigger (mcontrol6) tests for 3-SIP-ESR.
+"""Hand-assemble directed HW-trigger (mcontrol6) tests for 3-SIPP-ESR.
 
 Emits programs/build/trig_<name>.hex (one 32-bit word/line, for $readmemh).
 Exit protocol (family TB): store 1 -> PASS, other -> FAIL(code) to tohost.

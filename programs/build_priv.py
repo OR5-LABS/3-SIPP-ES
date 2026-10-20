@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Hand-assemble directed M/U-privilege + PMP tests for 3-SIP-ESR SECURE=1.
+"""Hand-assemble directed M/U-privilege + PMP tests for 3-SIPP-ESR SECURE=1.
 
 Emits programs/build/priv_<name>.hex (one 32-bit word/line, for $readmemh).
 Exit protocol (matches the family TB): store 1 -> PASS, 2 -> FAIL to tohost.

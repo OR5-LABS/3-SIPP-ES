@@ -1,6 +1,6 @@
 # Comprehensive FreeRTOS & Real-Time Capability Verification Report
 
-**Processor:** 3-SIP-ESR (RV32IMAC + B, Zcb; 3-stage in-order pipeline)  
+**Processor:** 3-SIPP-ESR (RV32IMAC + B, Zcb; 3-stage in-order pipeline)  
 **Deliverable Document:** `docs/rtos-verification/report.md`  
 **Date:** 2026-10-18  
 **Verification Baseline Commit:** `01d2a9fa31b34fd4c2879b072f39cb5c42710bdf`  
@@ -10,11 +10,11 @@
 
 ## 1. Executive Summary
 
-This report establishes, through repeatable engineering evidence, the operational readiness and architectural limits of the **3-SIP-ESR** processor core running **FreeRTOS**.
+This report establishes, through repeatable engineering evidence, the operational readiness and architectural limits of the **3-SIPP-ESR** processor core running **FreeRTOS**.
 
 Through five incremental engineering verification stages:
 1. **RTOS-Capable Verdict: AFFIRMED.**
-   The 3-SIP-ESR core fully, deterministically, and correctly supports FreeRTOS. Preemptive scheduling driven by the hardware CLINT timer interrupt, context switching with full 32-register state preservation, priority-based task preemption, queue communications, binary and counting semaphores, task notifications, memory exhaustion protections, and continuous multi-task operation operate flawlessly without pipeline stalls, register clobbering, or spurious traps.
+   The 3-SIPP-ESR core fully, deterministically, and correctly supports FreeRTOS. Preemptive scheduling driven by the hardware CLINT timer interrupt, context switching with full 32-register state preservation, priority-based task preemption, queue communications, binary and counting semaphores, task notifications, memory exhaustion protections, and continuous multi-task operation operate flawlessly without pipeline stalls, register clobbering, or spurious traps.
 2. **Real-Time Capable Verdict: CONDITIONALLY QUALIFIED (Soft / Firm Real-Time Capable; Formal Hard Real-Time Requires Additional Bounding).**
    While the processor exhibits low, deterministic interrupt latency ($\mu = 63\text{ cycles}$) and minimal scheduling jitter ($\Delta = 2\text{ cycles}$), and successfully passes fixed-priority Response-Time Analysis ($R_i \le D_i$) under stress, empirical testing alone does not constitute a formally proven upper bound (WCET) required for safety-critical hard real-time certification.
 
@@ -90,7 +90,7 @@ $$R_i^{(m+1)} = C_i + B_i + \sum_{j \in hp(i)} \left\lceil \frac{R_i^{(m)} + J_j
 
 ## 5. FPGA Implementation Evidence
 
-The 3-SIP-ESR core was previously synthesized and routed on the Xilinx Artix-7 FPGA (`xc7a100tcsg324-1`) under `fpga/arty_a7/build/`:
+The 3-SIPP-ESR core was previously synthesized and routed on the Xilinx Artix-7 FPGA (`xc7a100tcsg324-1`) under `fpga/arty_a7/build/`:
 
 * **Target Clock:** 25.0 MHz (`clk25`, $40.0\text{ ns}$ period).
 * **Worst Negative Slack (WNS):** $+0.055\text{ ns}$ (**Timing Met**).

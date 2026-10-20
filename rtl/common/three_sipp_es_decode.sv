@@ -3,7 +3,7 @@
 //
 // One combinational decode of the (already RVC-expanded) 32-bit instruction
 // into the family's control bundle + the selected immediate. This is the single
-// source of truth previously duplicated inline in every core; the 3-SIP-ESR core instantiates it (extensions may wrap it
+// source of truth previously duplicated inline in every core; the 3-SIPP-ESR core instantiates it (extensions may wrap it
 // decode). Behaviour is byte-identical to the original inline decoders.
 // ============================================================================
 `include "three_sipp_es_pkg.sv"

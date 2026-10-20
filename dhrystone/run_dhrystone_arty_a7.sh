@@ -77,7 +77,7 @@ die()   { echo -e "${RED}[ERROR]${NC} $*" >&2; exit 1; }
 sep()   { echo -e "${CYN}$(printf '%.0s─' {1..72})${NC}"; }
 
 sep
-echo -e "${CYN}  3-SIP-ESR Dhrystone — Arty A7-100T FPGA Run${NC}"
+echo -e "${CYN}  3-SIPP-ESR Dhrystone — Arty A7-100T FPGA Run${NC}"
 echo -e "  Runs    : ${YLW}${RUNS}${NC}  (industry standard: 2 000 000)"
 echo -e "  Clock   : ${YLW}${CLK_HZ} Hz${NC}  (100 MHz)"
 echo -e "  UART    : ${UART_DEV}  @ ${BAUD}-8N1"
@@ -311,7 +311,7 @@ wait "$UART_PID" || true
 
 if [[ -s "$UART_LOG" ]]; then
     echo
-    echo -e "${CYN}--- UART output from 3-SIP-ESR @ ${BAUD}-8N1 ---${NC}"
+    echo -e "${CYN}--- UART output from 3-SIPP-ESR @ ${BAUD}-8N1 ---${NC}"
     cat "$UART_LOG"
     echo -e "${CYN}--- End of UART capture ---${NC}"
     echo

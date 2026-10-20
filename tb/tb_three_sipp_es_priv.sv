@@ -1,5 +1,5 @@
 // ============================================================================
-// tb_three_sipp_es_priv.sv — directed M/U + PMP testbench for 3-SIP-ESR SECURE=1.
+// tb_three_sipp_es_priv.sv — directed M/U + PMP testbench for 3-SIPP-ESR SECURE=1.
 //
 //   vvp sim/tb_three_sipp_es_priv +IMEM=programs/build/priv_<name>.hex
 //

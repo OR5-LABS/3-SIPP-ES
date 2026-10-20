@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ============================================================================
-# run_all.py -- Unified FreeRTOS Verification Suite Runner for 3-SIP-ESR.
+# run_all.py -- Unified FreeRTOS Verification Suite Runner for 3-SIPP-ESR.
 #
 # Runs all 5 verification stages:
 #   - Stage 1: FreeRTOS Demo (positive + negative control without tick)
@@ -75,7 +75,7 @@ TEST_STAGES = [
 
 def main():
     print("=" * 72)
-    print("     3-SIP-ESR PROCESSOR: FREERTOS VERIFICATION TEST SUITE")
+    print("     3-SIPP-ESR PROCESSOR: FREERTOS VERIFICATION TEST SUITE")
     print("=" * 72)
 
     commit = get_git_commit()
@@ -88,7 +88,7 @@ def main():
             "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "git_commit": commit,
             "tools": tools,
-            "architecture": "3-SIP-ESR RV32IMAC(+B, Zcb)",
+            "architecture": "3-SIPP-ESR RV32IMAC(+B, Zcb)",
         },
         "unsupported_features": [
             {
@@ -164,7 +164,7 @@ def main():
 
     # Save JUnit XML
     ts_elem = ET.Element("testsuite", {
-        "name": "3-SIP-ESR_FreeRTOS_Verification",
+        "name": "3-SIPP-ESR_FreeRTOS_Verification",
         "tests": str(len(TEST_STAGES) + len(results["unsupported_features"])),
         "failures": str(results["summary"]["failed"]),
         "time": f"{total_dur:.3f}",

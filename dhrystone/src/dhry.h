@@ -1,6 +1,6 @@
 /*
  * dhry.h — Dhrystone 2.1 type and macro definitions
- * Adapted for bare-metal RISC-V (3-SIP-ESR SoC).
+ * Adapted for bare-metal RISC-V (3-SIPP-ESR SoC).
  * Dhrystone was written by R. P. Weicker.
  */
 #ifndef DHRY_H
@@ -58,7 +58,7 @@ uint32_t read_mtime(void);
 #define NUMBER_OF_RUNS 500000
 #endif
 
-/* --- Clock frequency (100 MHz for 3-SIP-ESR FPGA / 50 MHz sim mtime) --------- */
+/* --- Clock frequency (100 MHz for 3-SIPP-ESR FPGA / 50 MHz sim mtime) --------- */
 #ifndef CLK_FREQ_HZ
 #define CLK_FREQ_HZ 100000000
 #endif

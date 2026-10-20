@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Hand-assemble an RV32IM smoke test for the 3-SIP-ESR core.
+"""Hand-assemble an RV32IM smoke test for the 3-SIPP-ESR core.
 
 No GCC required. Emits programs/build/smoke.hex (one 32-bit word per line)
 for $readmemh. Convention: store 1 to tohost (0x2000_0000) on success, 2 on

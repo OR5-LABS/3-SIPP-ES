@@ -2,7 +2,7 @@
  * dhry_1.c — Dhrystone 2.1 main benchmark loop.
  * Reference: R. P. Weicker, "Dhrystone: A Synthetic Systems Programming
  *            Benchmark", CACM Vol. 27(10), October 1984.
- * Adapted for bare-metal RISC-V 3-SIP-ESR SoC.
+ * Adapted for bare-metal RISC-V 3-SIPP-ESR SoC.
  */
 #include "dhry.h"
 #include <string.h>

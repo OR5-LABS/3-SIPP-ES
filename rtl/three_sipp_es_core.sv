@@ -325,6 +325,9 @@ module three_sipp_es_core
        (amo_f5==5'b10000) || (amo_f5==5'b10100) ||          // MIN / MAX
        (amo_f5==5'b11000) || (amo_f5==5'b11100));           // MINU / MAXU
 
+  // FENCE.I instruction (Zifencei extension) triggers pipeline flush and refetch
+  wire        is_fencei  = (fx_instr[6:0] == 7'b0001111) && (funct3 == 3'b001);
+
   // ---- RV32 'N' (user-level trap) URET, inline (three_sipp_es_decode untouched) ----
   // URET = 0x00200073 (funct12=0x002, funct3=0). The shared decoder flags it
   // illegal (it only knows MRET); 3-SIPP-ES recognises it here when SECURE (the N
@@ -685,6 +688,7 @@ module three_sipp_es_core
                         trig_to_exc       ? CAUSE_BREAKPOINT : CAUSE_ILLEGAL;
   wire [XLEN-1:0] ex_tval = acc_fetch_fault              ? fx_pc :
                             (acc_load_fault|acc_store_fault) ? ls_addr :
+                            d_is_ebreak                   ? fx_pc :
                             illegal_all                   ? fx_instr :
                             trig_to_exc                   ? trig_tval_w : 32'b0;
   logic [XLEN-1:0] mtvec_w, mepc_w;
@@ -839,6 +843,10 @@ module three_sipp_es_core
         // (static) redirect whenever actually taken. Target is the resolved next-PC.
         redirect        = BPRED ? mispredict : br_actual_taken;
         redirect_target = br_actual_next;
+      end
+      else if (is_fencei) begin
+        redirect        = 1'b1;
+        redirect_target = seq_nx;
       end
       else if (take_irq)                begin redirect=1; redirect_target=mtvec_w; end
     end

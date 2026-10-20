@@ -2,7 +2,7 @@
 # ============================================================================
 # 3-SIPP-ES build & test driver (Verilator).
 #
-#   ./build.sh [sim|cosim|rvfi|zcb|trig|debug|priv|axi|rtos|rtos-suite|fpga|clean]
+#   ./build.sh [sim|cosim|rvfi|zcb|trig|debug|priv|axi|rtos|rtos-suite|arch|arch-sim|fpga|clean]
 #
 # 3-SIPP-ES is a 3-stage in-order RV32IMAC(+B, Zcb) core. The datapath leaf
 # cells (ALU / muldiv / regfile / CSR / RVC / immgen / branch / decoder / PMP)
@@ -181,4 +181,20 @@ if [[ "$ACTION" == "rvfi" ]]; then
     "$R/three_sipp_es_core.sv" "$R/three_sipp_es_uart.sv" "$R/three_sipp_es_soc.sv" \
     tb/tb_three_sipp_es_rvfi.sv
   run_check '^RVFI: PASS' sim/tb_three_sipp_es_rvfi +IMEM=programs/build/smoke.hex
+fi
+
+if [[ "$ACTION" == "arch-sim" ]]; then
+  echo "Building 3-SIPP-ES RISC-V Architectural Test simulator..."
+  "$VRL" --binary -j 0 -Wno-fatal -Wno-WIDTHEXPAND -Wno-WIDTHTRUNC --timescale 1ns/1ps --Mdir sim -o tb_three_sipp_es_arch -I"$C" -I"$R" \
+    "${CELLS[@]}" "$R/three_sipp_es_core.sv" tb/tb_three_sipp_es_arch.sv
+  exit 0
+fi
+
+if [[ "$ACTION" == "arch" ]]; then
+  echo "Building 3-SIPP-ES RISC-V Architectural Test simulator..."
+  "$VRL" --binary -j 0 -Wno-fatal -Wno-WIDTHEXPAND -Wno-WIDTHTRUNC --timescale 1ns/1ps --Mdir sim -o tb_three_sipp_es_arch -I"$C" -I"$R" \
+    "${CELLS[@]}" "$R/three_sipp_es_core.sv" tb/tb_three_sipp_es_arch.sv
+  echo "Running RISC-V Architectural Compliance Test suite..."
+  "$PY" arch-test/run_arch_test.py
+  exit $?
 fi

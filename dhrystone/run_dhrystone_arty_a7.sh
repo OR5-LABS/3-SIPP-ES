@@ -120,7 +120,7 @@ info "Compiling Dhrystone (${RUNS} runs, CLK=${CLK_HZ} Hz)..."
 SRC_DIR="$SCRIPT_DIR/src"
 LDSCRIPT="$SRC_DIR/link_fpga.ld"   # unified BRAM — .data/.bss must NOT go to 0x8000_0000
 
-FLAGS="-O2 -march=rv32imc -mabi=ilp32 -nostartfiles -fno-pic -Wl,--no-relax"
+FLAGS="-O2 -march=rv32imc -mabi=ilp32 -nostdlib -fno-pic -Wl,--no-relax"
 INCLUDES="-I$SRC_DIR"
 
 "$GCC" $FLAGS $INCLUDES -T "$LDSCRIPT" \
@@ -132,7 +132,7 @@ INCLUDES="-I$SRC_DIR"
     "$SRC_DIR/dhry_1.c"          \
     "$SRC_DIR/dhry_2.c"          \
     "$SRC_DIR/dhry_port.c"       \
-    -o "$SRC_DIR/dhrystone_arty.elf"
+    -lgcc -o "$SRC_DIR/dhrystone_arty.elf"
 
 ok "ELF built: $SRC_DIR/dhrystone_arty.elf"
 

@@ -32,7 +32,7 @@ fi
 RUNS="${1:-500000}"
 LDSCRIPT="${LDSCRIPT:-link.ld}"
 
-FLAGS="-O2 -march=rv32imc -mabi=ilp32 -nostartfiles -fno-pic -Wl,--no-relax"
+FLAGS="-O2 -march=rv32imc -mabi=ilp32 -nostdlib -fno-pic -Wl,--no-relax"
 INCLUDES="-I."
 
 echo "Compiling Dhrystone for 3-SIPP-ESR (${RUNS} runs)..."
@@ -46,7 +46,7 @@ echo "Compiling Dhrystone for 3-SIPP-ESR (${RUNS} runs)..."
     dhry_1.c \
     dhry_2.c \
     dhry_port.c \
-    -o dhrystone.elf
+    -lgcc -o dhrystone.elf
 
 echo "Generating hex..."
 "$OBJCOPY" -O binary dhrystone.elf dhrystone.bin

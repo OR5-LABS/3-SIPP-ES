@@ -1,6 +1,20 @@
+<div align="center">
+
 # 3-SIPP-ESR
 
-A compact, fully verified **RV32IMAC** processor core in synthesizable SystemVerilog. It targets embedded and real-time applications — microcontrollers, smart peripherals, and FPGA soft-cores — that need more performance than a simple multi-cycle core without the area of a full application processor.
+**Fast, Lightweight 3-Stage 32-bit RISC-V Processor Core**
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow" alt="License: MIT"/></a>
+  <a href="https://www.linkedin.com/company/open-risc-v/"><img src="https://img.shields.io/badge/LinkedIn-Follow-0077B5?logo=linkedin&logoColor=white" alt="LinkedIn Follow"/></a>
+  <a href="https://or5.org"><img src="https://img.shields.io/badge/Visit-or5.org-purple?logo=google-chrome&logoColor=white" alt="Visit or5.org"/></a>
+</p>
+
+</div>
+
+---
+
+**3-SIPP-ESR** is a fast, lightweight 32-bit RISC-V processor core written in SystemVerilog. It uses a 3-stage pipeline with branch prediction to achieve high performance while staying small, efficient, and easy to integrate.
 
 ---
 
@@ -36,11 +50,13 @@ A compact, fully verified **RV32IMAC** processor core in synthesizable SystemVer
 
 Synthesized and implemented with **AMD Vivado 2023.2** targeting the **Xilinx Artix-7 100T** (`xc7a100tcsg324-1`) on the Digilent Arty A7 evaluation board.
 
-| Configuration | Slice LUTs | Registers (FF) | DSP48E1 | BRAM | Fmax |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| Default (M-mode only) | 6,028 | 2,090 | 12 | 0 | — |
-| SECURE (M+U, PMP, Smepmp) | 8,647 | 2,993 | 12 | 0 | — |
-| Reference SoC (post-route) | 15,895 (25.1%) | 2,150 (1.7%) | 12 (5.0%) | 0 | 25 MHz (+1.99 ns WNS) |
+| Configuration | Slice LUTs | Registers (FF) | DSP48E1 | BRAM (36Kb) |
+| :--- | :---: | :---: | :---: | :---: |
+| Core Only (Standalone OOC, M-mode) | 7,418 (11.7%) | 2,092 (1.6%) | 12 (5.0%) | 0 |
+| Core Only (Secure M+U mode) | 8,647 | 2,993 | 12 | 0 |
+| Full Evaluation SoC (Arty A7 Top) | 6,646 (10.5%) | 2,147 (1.7%) | 12 (5.0%) | 8 (5.9%) |
+
+*Full Evaluation SoC includes the processor core, CLINT timer, UART controller, GPIOs, and 32 KB dedicated true dual-port Block RAM.*
 
 Enable the secure configuration: `SECURE` RTL parameter or compile-time `-DTHREE_SIPP_ES_SECURE`.
 
@@ -79,7 +95,7 @@ Set `RISCV_TC=/path/to/toolchain/bin` to point at a non-`PATH` toolchain.
 
 ## Build & Test
 
-A single top-level **Makefile** covers the most common workflows. For fine-grained control every action is also available directly through `build.sh`.
+A single top-level **Makefile** covers the most common workflows. For running individual workflows use `build.sh`.
 
 ### Makefile targets
 

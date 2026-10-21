@@ -7,7 +7,7 @@
 #include "dhry.h"
 #include <string.h>
 
-/* Record storage — kept in BSS so the linker puts them in DRAM on FPGA. */
+/* Record storage — kept in BSS. */
 Rec_Type Rec_glob_1;
 Rec_Type Rec_glob_2;
 

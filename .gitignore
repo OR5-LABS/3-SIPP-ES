@@ -1,6 +1,7 @@
 # Simulation artifacts
 sim/
 build/
+build_ooc/
 arch-test/build/
 arch-test/riscv-arch-test/
 arch-test/riscv-test-suite/

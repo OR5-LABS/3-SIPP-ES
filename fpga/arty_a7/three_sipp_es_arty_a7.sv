@@ -26,10 +26,15 @@ module three_sipp_es_arty_a7 (
   wire clk25;
   BUFG u_bufg (.I(clk_div[1]), .O(clk25));
 
+  reg clk_bram_q = 0;
+  always_ff @(posedge CLK100) clk_bram_q <= ~(clk_div[1] ^ clk_div[0]);
+  wire clk_bram;
+  BUFG u_bufg_bram (.I(clk_bram_q), .O(clk_bram));
+
   wire [7:0] soc_leds;
   three_sipp_es_fpga #(.CLK_HZ(25_000_000), .UART_BAUD(115_200),
                   .MEM_WORDS(8192), .MEMFILE("firmware.mem")) u_soc (
-      .clk(clk25), .rst(sys_rst),
+      .clk(clk25), .clk_bram(clk_bram), .rst(sys_rst),
       .leds(soc_leds), .serial_tx(uart_rxd_out), .serial_rx(uart_txd_in),
       .tohost(), .tohost_we()
   );

@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1380 866" width="1380" height="866" role="img"><title>3-SIPP-ESR block diagram</title><defs>
+<marker id="a1f1b3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f1b3a"/></marker>
+<marker id="a5b2bc9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5b2bc9"/></marker>
+<marker id="ac0392b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker>
+<pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#efedf6" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="#ffffff"/><rect width="100%" height="100%" fill="url(#grid)"/>
+<text x="28" y="44" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="30" font-weight="800" fill="#1f1b3a" text-anchor="start">3-SIPP-ESR</text>
+<text x="28" y="72" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="16" font-weight="500" fill="#4a4558" text-anchor="start">32-bit RV32IMACB_Zicsr_Zcb_Zbc_Zifencei processor  ·  3-stage in-order pipeline</text>
+<rect x="20" y="166" width="150" height="190" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M21 167 h148 v18 h-148 z" fill="#ecebf2"/><rect x="21" y="167" width="148" height="12" rx="5" fill="#ecebf2"/>
+<text x="95.0" y="181" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">INSTRUCTION BUS</text>
+<text x="95.0" y="204" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">imem_addr [31:0]</text>
+<text x="95.0" y="219" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">imem_rdata [31:0]</text>
+<text x="95.0" y="234" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle"></text>
+<text x="95.0" y="249" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">native port,</text>
+<text x="95.0" y="264" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">combinational IMEM</text>
+<rect x="190" y="96" width="290" height="600" rx="8" fill="#faf9fd" stroke="#b9b3cf"/><path d="M190 104 h290 v22 h-290 z" fill="#1f1b3a"/><rect x="190" y="96" width="290" height="14" rx="7" fill="#1f1b3a"/>
+<text x="335.0" y="116" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">F  —  FETCH</text>
+<text x="335.0" y="142" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#4a4558" text-anchor="middle">PC, prediction, RVC expand</text>
+<rect x="520" y="96" width="470" height="600" rx="8" fill="#faf9fd" stroke="#b9b3cf"/><path d="M520 104 h470 v22 h-470 z" fill="#1f1b3a"/><rect x="520" y="96" width="470" height="14" rx="7" fill="#1f1b3a"/>
+<text x="755.0" y="116" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">X  —  EXECUTE</text>
+<text x="755.0" y="142" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#4a4558" text-anchor="middle">decode, read, execute, address</text>
+<rect x="1030" y="96" width="190" height="600" rx="8" fill="#faf9fd" stroke="#b9b3cf"/><path d="M1030 104 h190 v22 h-190 z" fill="#1f1b3a"/><rect x="1030" y="96" width="190" height="14" rx="7" fill="#1f1b3a"/>
+<text x="1125.0" y="116" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">W  —  MEMORY / WB</text>
+<text x="1125.0" y="142" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#4a4558" text-anchor="middle">memory access, writeback</text>
+<rect x="1240" y="166" width="120" height="190" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M1241 167 h118 v18 h-118 z" fill="#ecebf2"/><rect x="1241" y="167" width="118" height="12" rx="5" fill="#ecebf2"/>
+<text x="1300.0" y="181" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">DATA BUS</text>
+<text x="1300.0" y="204" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">dmem_addr</text>
+<text x="1300.0" y="219" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">dmem_re / we</text>
+<text x="1300.0" y="234" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">dmem_be[3:0]</text>
+<text x="1300.0" y="249" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">dmem_wdata</text>
+<text x="1300.0" y="264" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">dmem_rdata</text>
+<rect x="500" y="166" width="14" height="520" fill="#d9d4ea" stroke="#1f1b3a"/>
+<text x="511" y="426" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="700" fill="#1f1b3a" text-anchor="middle" transform="rotate(-90 511 426)">F / X</text>
+<rect x="1008" y="166" width="14" height="520" fill="#d9d4ea" stroke="#1f1b3a"/>
+<text x="1019" y="426" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="700" fill="#1f1b3a" text-anchor="middle" transform="rotate(-90 1019 426)">X / W</text>
+<rect x="210" y="174" width="250" height="60" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M211 175 h248 v18 h-248 z" fill="#ecebf2"/><rect x="211" y="175" width="248" height="12" rx="5" fill="#ecebf2"/>
+<text x="335.0" y="189" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">PC REGISTER</text>
+<text x="335.0" y="212" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">pc (+2 / +4 / predicted)</text>
+<rect x="210" y="256" width="250" height="118" rx="6" fill="#ffffff" stroke="#5b2bc9" stroke-width="1.6"/>
+<path d="M211 257 h248 v18 h-248 z" fill="#ede8fb"/><rect x="211" y="257" width="248" height="12" rx="5" fill="#ede8fb"/>
+<text x="335.0" y="271" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#5b2bc9" text-anchor="middle">BRANCH PREDICTOR</text>
+<text x="335.0" y="294" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">gshare BHT: 256 x 2-bit</text>
+<text x="335.0" y="309" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">global history: 8 bits</text>
+<text x="335.0" y="324" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">BTB: 64 entries</text>
+<text x="335.0" y="339" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">RAS: 8 entries</text>
+<text x="335.0" y="354" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">trained from X</text>
+<rect x="210" y="396" width="250" height="72" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M211 397 h248 v18 h-248 z" fill="#ecebf2"/><rect x="211" y="397" width="248" height="12" rx="5" fill="#ecebf2"/>
+<text x="335.0" y="411" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">RVC EXPANDER</text>
+<text x="335.0" y="434" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">16-bit -&gt; 32-bit</text>
+<text x="335.0" y="449" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">C + Zcb</text>
+<rect x="210" y="488" width="250" height="88" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M211 489 h248 v18 h-248 z" fill="#ecebf2"/><rect x="211" y="489" width="248" height="12" rx="5" fill="#ecebf2"/>
+<text x="335.0" y="503" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">FETCH CONTROL</text>
+<text x="335.0" y="526" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">straddling 32-bit fetch</text>
+<text x="335.0" y="541" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">stall: mul/div or</text>
+<text x="335.0" y="556" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">misaligned 2nd beat</text>
+<rect x="540" y="174" width="210" height="72" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M541 175 h208 v18 h-208 z" fill="#ecebf2"/><rect x="541" y="175" width="208" height="12" rx="5" fill="#ecebf2"/>
+<text x="645.0" y="189" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">DECODER</text>
+<text x="645.0" y="212" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">RV32IMACB, Zbc, Zcb</text>
+<text x="645.0" y="227" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">A, URET inline</text>
+<rect x="760" y="174" width="210" height="72" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M761 175 h208 v18 h-208 z" fill="#ecebf2"/><rect x="761" y="175" width="208" height="12" rx="5" fill="#ecebf2"/>
+<text x="865.0" y="189" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">IMMEDIATE GEN</text>
+<text x="865.0" y="212" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">I/S/B/U/J formats</text>
+<rect x="540" y="268" width="210" height="90" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M541 269 h208 v18 h-208 z" fill="#ecebf2"/><rect x="541" y="269" width="208" height="12" rx="5" fill="#ecebf2"/>
+<text x="645.0" y="283" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">REGISTER FILE</text>
+<text x="645.0" y="306" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">32 x 32-bit</text>
+<text x="645.0" y="321" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">2 read / 1 write</text>
+<text x="645.0" y="336" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">written from W</text>
+<rect x="760" y="268" width="210" height="90" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M761 269 h208 v18 h-208 z" fill="#ecebf2"/><rect x="761" y="269" width="208" height="12" rx="5" fill="#ecebf2"/>
+<text x="865.0" y="283" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">ALU + BRANCH</text>
+<text x="865.0" y="306" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">Zba/Zbb/Zbs/Zbc</text>
+<text x="865.0" y="321" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">branch compare</text>
+<text x="865.0" y="336" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">address (AGU)</text>
+<rect x="540" y="380" width="210" height="90" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M541 381 h208 v18 h-208 z" fill="#ecebf2"/><rect x="541" y="381" width="208" height="12" rx="5" fill="#ecebf2"/>
+<text x="645.0" y="395" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">MUL / DIV</text>
+<text x="645.0" y="418" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">multi-cycle</text>
+<text x="645.0" y="433" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">stalls the front end</text>
+<rect x="760" y="380" width="210" height="90" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M761 381 h208 v18 h-208 z" fill="#ecebf2"/><rect x="761" y="381" width="208" height="12" rx="5" fill="#ecebf2"/>
+<text x="865.0" y="395" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">CSR + TRAPS</text>
+<text x="865.0" y="418" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">Zicsr, Zihpm</text>
+<text x="865.0" y="433" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">precise traps, IRQs</text>
+<text x="865.0" y="448" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">resolve in X</text>
+<rect x="540" y="526" width="210" height="110" rx="6" fill="#ffffff" stroke="#5b2bc9" stroke-width="1.6" stroke-dasharray="7 5"/>
+<path d="M541 527 h208 v18 h-208 z" fill="#ede8fb"/><rect x="541" y="527" width="208" height="12" rx="5" fill="#ede8fb"/>
+<text x="645.0" y="541" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#5b2bc9" text-anchor="middle">PMP  (SECURE)</text>
+<text x="645.0" y="564" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">8 regions</text>
+<text x="645.0" y="579" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">TOR / NA4 / NAPOT</text>
+<text x="645.0" y="594" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">fetch + load/store</text>
+<text x="645.0" y="609" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">Smepmp, M/U modes</text>
+<rect x="760" y="526" width="210" height="110" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M761 527 h208 v18 h-208 z" fill="#ecebf2"/><rect x="761" y="527" width="208" height="12" rx="5" fill="#ecebf2"/>
+<text x="865.0" y="541" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">TRIGGERS</text>
+<text x="865.0" y="564" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">Sdtrig x 2</text>
+<text x="865.0" y="579" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">mcontrol6</text>
+<text x="865.0" y="594" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">PC breakpoint</text>
+<text x="865.0" y="609" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">load/store watchpoint</text>
+<rect x="1045" y="174" width="160" height="150" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M1046 175 h158 v18 h-158 z" fill="#ecebf2"/><rect x="1046" y="175" width="158" height="12" rx="5" fill="#ecebf2"/>
+<text x="1125.0" y="189" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">LOAD / STORE</text>
+<text x="1125.0" y="212" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">byte-lane align</text>
+<text x="1125.0" y="227" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">misaligned:</text>
+<text x="1125.0" y="242" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">2 beats</text>
+<text x="1125.0" y="257" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">AMO RMW, LR/SC</text>
+<rect x="1045" y="346" width="160" height="90" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M1046 347 h158 v18 h-158 z" fill="#ecebf2"/><rect x="1046" y="347" width="158" height="12" rx="5" fill="#ecebf2"/>
+<text x="1125.0" y="361" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">WRITEBACK MUX</text>
+<text x="1125.0" y="384" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">ALU / MEM / PC+n</text>
+<text x="1125.0" y="399" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="400" fill="#4a4558" text-anchor="middle">MUL-DIV / CSR</text>
+<text x="1125" y="468" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="700" fill="#5b2bc9" text-anchor="middle">forwards W -&gt; X</text>
+<text x="1125" y="484" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="700" fill="#5b2bc9" text-anchor="middle">(no load-use stall)</text>
+<path d="M 170 246 L 190 246 L 190 204 L 210 204" fill="none" stroke="#1f1b3a" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a1f1b3a)"/>
+<path d="M 460 432 L 490 432 L 490 210 L 540 210" fill="none" stroke="#1f1b3a" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a1f1b3a)"/>
+<path d="M 750 313 L 760 313" fill="none" stroke="#1f1b3a" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a1f1b3a)"/>
+<path d="M 970 313 L 990 313 L 990 246 L 1045 246" fill="none" stroke="#1f1b3a" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a1f1b3a)"/>
+<path d="M 1205 226 L 1240 226" fill="none" stroke="#1f1b3a" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a1f1b3a)"/>
+<path d="M 1240 296 L 1205 296" fill="none" stroke="#1f1b3a" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a1f1b3a)"/>
+<path d="M 1125 324 L 1125 346" fill="none" stroke="#1f1b3a" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a1f1b3a)"/>
+<path d="M 1125 436 L 1125 446 L 1215 446 L 1215 656 L 530 656 L 530 313 L 540 313" fill="none" stroke="#1f1b3a" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a1f1b3a)"/>
+<text x="870" y="652" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="700" fill="#4a4558" text-anchor="middle" stroke="#ffffff" stroke-width="4" paint-order="stroke">writeback -&gt; register file</text>
+<path d="M 1045 396 L 1000 396 L 1000 336 L 970 336" fill="none" stroke="#5b2bc9" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a5b2bc9)"/>
+<path d="M 865 470 L 865 498 L 482 498 L 482 162 L 335 162 L 335 174" fill="none" stroke="#c0392b" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#ac0392b)"/>
+<path d="M 970 350 L 985 350 L 985 498 L 865 498" fill="none" stroke="#c0392b" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="700" y="494" font-family="ui-monospace,'Cascadia Mono',Consolas,monospace" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle" stroke="#ffffff" stroke-width="4" paint-order="stroke">redirect: mispredict / trap / mret, 1-cycle flush</text>
+<rect x="20" y="722" width="660" height="120" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/>
+<path d="M21 723 h658 v18 h-658 z" fill="#ecebf2"/><rect x="21" y="723" width="658" height="12" rx="5" fill="#ecebf2"/>
+<text x="350.0" y="737" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">JTAG DEBUG MODULE</text>
+<text x="60" y="768" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="13" font-weight="700" fill="#1f1b3a" text-anchor="start">Transport</text>
+<text x="60" y="785" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="400" fill="#4a4558" text-anchor="start">JTAG DTM + Debug Module (Spec 0.13)</text>
+<text x="380" y="768" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="13" font-weight="700" fill="#1f1b3a" text-anchor="start">Run control</text>
+<text x="380" y="785" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="400" fill="#4a4558" text-anchor="start">halt, resume, single-step, ebreak</text>
+<text x="60" y="810" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="13" font-weight="700" fill="#1f1b3a" text-anchor="start">State access</text>
+<text x="60" y="827" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="400" fill="#4a4558" text-anchor="start">GPRs, CSRs and memory (system bus access)</text>
+<text x="380" y="810" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="13" font-weight="700" fill="#1f1b3a" text-anchor="start">Tooling</text>
+<text x="380" y="827" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="400" fill="#4a4558" text-anchor="start">OpenOCD + GDB, debug-driven core reset</text>
+<rect x="700" y="722" width="660" height="120" rx="6" fill="#ffffff" stroke="#1f1b3a" stroke-width="1.6"/><path d="M701 723 h658 v18 h-658 z" fill="#ecebf2"/><rect x="701" y="723" width="658" height="12" rx="5" fill="#ecebf2"/>
+<text x="1030" y="737" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#1f1b3a" text-anchor="middle">LEGEND</text>
+<path d="M 740 772 L 792 772" fill="none" stroke="#1f1b3a" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a1f1b3a)"/>
+<text x="804" y="776" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="500" fill="#4a4558" text-anchor="start">datapath</text>
+<path d="M 740 806 L 792 806" fill="none" stroke="#5b2bc9" stroke-width="1.7" stroke-linejoin="round" stroke-dasharray="6 4" marker-end="url(#a5b2bc9)"/>
+<text x="804" y="810" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="500" fill="#4a4558" text-anchor="start">SECURE only</text>
+<path d="M 1040 772 L 1092 772" fill="none" stroke="#c0392b" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#ac0392b)"/>
+<text x="1104" y="776" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="500" fill="#4a4558" text-anchor="start">redirect / trap</text>
+<path d="M 1040 806 L 1092 806" fill="none" stroke="#5b2bc9" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#a5b2bc9)"/>
+<text x="1104" y="810" font-family="'Segoe UI',Inter,system-ui,sans-serif" font-size="12" font-weight="500" fill="#4a4558" text-anchor="start">forwarding</text>
+</svg>

@@ -5,17 +5,11 @@ fetched, executed, and retired per cycle in the common case; variable-latency
 operations (multiply, divide, misaligned access, atomics) extend transparently
 through a small set of stall conditions.
 
-## Pipeline
 
-```
-   IF                    EX                        MEM / WB
-+---------+          +--------------+          +------------------+
-| fetch + |  ----->  | decode +     |  ----->  | data memory +    |
-| predict |          | operand read |          | CSR + writeback  |
-| (BTB/   |  <-----  | ALU / branch |  <-----  | (commit, trap)   |
-|  gshare)|  redirect|  mul/div/AMO |  forward |                  |
-+---------+          +--------------+          +------------------+
-```
+
+## Pipeline
+![3-SIPP-ESR Block Diagram](architecture.svg)
+
 
 - **IF — instruction fetch + predict.** Fetches the next instruction (32-bit
   or a 16-bit compressed form expanded by the RVC decoder) and consults the

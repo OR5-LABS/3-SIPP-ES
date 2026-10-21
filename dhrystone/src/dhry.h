@@ -58,7 +58,7 @@ uint32_t read_mtime(void);
 #define NUMBER_OF_RUNS 500000
 #endif
 
-/* --- Clock frequency (100 MHz for 3-SIPP-ESR FPGA / 50 MHz sim mtime) --------- */
+/* --- Clock frequency (100 MHz for 3-SIPP-ESR / 50 MHz sim mtime) --------- */
 #ifndef CLK_FREQ_HZ
 #define CLK_FREQ_HZ 100000000
 #endif

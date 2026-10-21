@@ -50,11 +50,11 @@
 
 Synthesized and implemented with **AMD Vivado 2023.2** targeting the **Xilinx Artix-7 100T** (`xc7a100tcsg324-1`) on the Digilent Arty A7 evaluation board.
 
-| Configuration | Slice LUTs | Registers (FF) | DSP48E1 | BRAM (36Kb) | Fmax |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| Core Only (Standalone OOC, M-mode) | 7,418 (11.7%) | 2,092 (1.6%) | 12 (5.0%) | 0 | 48.8 MHz (20.48 ns data path) |
-| Core Only (Secure M+U mode) | 8,647 | 2,993 | 12 | 0 | — |
-| Full Evaluation SoC (Arty A7 Top) | 6,646 (10.5%) | 2,147 (1.7%) | 12 (5.0%) | 8 (5.9%) | 27.2 MHz (+3.24 ns WNS) |
+| Configuration | Slice LUTs | Registers (FF) | DSP48E1 | BRAM (36Kb) |
+| :--- | :---: | :---: | :---: | :---: |
+| Core Only (Standalone OOC, M-mode) | 7,418 (11.7%) | 2,092 (1.6%) | 12 (5.0%) | 0 |
+| Core Only (Secure M+U mode) | 8,647 | 2,993 | 12 | 0 |
+| Full Evaluation SoC (Arty A7 Top) | 6,646 (10.5%) | 2,147 (1.7%) | 12 (5.0%) | 8 (5.9%) |
 
 *Full Evaluation SoC includes the processor core, CLINT timer, UART controller, GPIOs, and 32 KB dedicated true dual-port Block RAM.*
 

@@ -22,6 +22,7 @@ module three_sipp_es_fpga
   parameter     MEMFILE    = ""
 )(
   input  wire        clk,
+  input  wire        clk_bram,
   input  wire        rst,
   output reg  [7:0]  leds,
   output wire        serial_tx,
@@ -31,13 +32,15 @@ module three_sipp_es_fpga
 );
   localparam int AW = $clog2(MEM_WORDS);
 
-  (* ram_style = "distributed" *) reg [31:0] mem [0:MEM_WORDS-1];
+  (* ram_style = "block" *) reg [31:0] mem [0:MEM_WORDS-1];
   initial if (MEMFILE != "") $readmemh(MEMFILE, mem);
 
-  wire [31:0] imem_addr, imem_rdata;
+  wire [31:0] imem_addr;
+  reg  [31:0] imem_rdata;
   wire [31:0] dmem_addr, dmem_wdata;
   wire        dmem_re, dmem_we;
   wire [3:0]  dmem_be;
+  reg  [31:0] dmem_ram_rdata;
   logic [31:0] dmem_rdata;
 
   reg  [63:0] mtime, mtimecmp;
@@ -58,7 +61,10 @@ module three_sipp_es_fpga
     .dbg_ar_regno(12'd0), .dbg_ar_wdata(32'd0), .dbg_ar_rdata(), .dbg_ar_done()
   );
 
-  assign imem_rdata = mem[imem_addr[AW+1:2]];
+  // Port A: Instruction read (BRAM)
+  always_ff @(posedge clk_bram) begin
+    imem_rdata <= mem[imem_addr[AW+1:2]];
+  end
 
   wire in_ram    = (dmem_addr < MEM_WORDS*4);
   wire uart_sel  = (dmem_addr[31:16] == 16'h1000);
@@ -66,6 +72,17 @@ module three_sipp_es_fpga
   wire led_sel   = (dmem_addr == 32'h2000_1000);
   wire tohost_sel= (dmem_addr == 32'h2000_0000);
   wire [AW-1:0] didx = dmem_addr[AW+1:2];
+
+  // Port B: Data read & write (BRAM)
+  always_ff @(posedge clk_bram) begin
+    if (dmem_we && in_ram) begin
+      if (dmem_be[0]) mem[didx][7:0]   <= dmem_wdata[7:0];
+      if (dmem_be[1]) mem[didx][15:8]  <= dmem_wdata[15:8];
+      if (dmem_be[2]) mem[didx][23:16] <= dmem_wdata[23:16];
+      if (dmem_be[3]) mem[didx][31:24] <= dmem_wdata[31:24];
+    end
+    dmem_ram_rdata <= mem[didx];
+  end
 
   wire [7:0] uart_rdata; wire uart_tx_irq, uart_rx_irq;
   three_sipp_es_uart #(.CLK_HZ(CLK_HZ), .BAUD(UART_BAUD)) u_uart (
@@ -85,7 +102,7 @@ module three_sipp_es_fpga
   always_comb begin
     if      (uart_sel)  dmem_rdata = {24'h0, uart_rdata};
     else if (clint_sel) dmem_rdata = clint_rdata;
-    else if (in_ram)    dmem_rdata = mem[didx];
+    else if (in_ram)    dmem_rdata = dmem_ram_rdata;
     else                dmem_rdata = 32'h0;
   end
 
@@ -96,12 +113,7 @@ module three_sipp_es_fpga
     end else begin
       mtime <= mtime + 64'd1;
       if (dmem_we) begin
-        if (in_ram) begin
-          if (dmem_be[0]) mem[didx][7:0]   <= dmem_wdata[7:0];
-          if (dmem_be[1]) mem[didx][15:8]  <= dmem_wdata[15:8];
-          if (dmem_be[2]) mem[didx][23:16] <= dmem_wdata[23:16];
-          if (dmem_be[3]) mem[didx][31:24] <= dmem_wdata[31:24];
-        end else if (clint_sel) begin
+        if (clint_sel) begin
           if (dmem_addr[15:0]==16'h0000) msip           <= dmem_wdata[0];
           if (dmem_addr[15:0]==16'h4000) mtimecmp[31:0] <= dmem_wdata;
           if (dmem_addr[15:0]==16'h4004) mtimecmp[63:32]<= dmem_wdata;

@@ -4,6 +4,7 @@
 set_property -dict {PACKAGE_PIN E3 IOSTANDARD LVCMOS33} [get_ports CLK100]
 create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports CLK100]
 create_generated_clock -name clk25 -source [get_ports CLK100] -divide_by 4 [get_pins clk_div_reg[1]/Q]
+create_generated_clock -name clk_bram -source [get_ports CLK100] -divide_by 4 [get_pins clk_bram_q_reg/Q]
 
 set_property -dict {PACKAGE_PIN C2 IOSTANDARD LVCMOS33} [get_ports ck_rst]
 

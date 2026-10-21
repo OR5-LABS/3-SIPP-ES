@@ -225,7 +225,6 @@ module three_sipp_es_core
     if (rst) begin
       pc <= RESET_PC; fx_valid <= 1'b0; straddle <= 1'b0; strad_lo <= 16'h0; fx_len <= 3'd4;
       fx_pred_taken <= 1'b0; fx_pred_target <= '0; fx_ghist <= '0;
-      ras_ptr <= '0; ras_cnt <= '0;
     end else if (redirect) begin
       pc <= redirect_target; fx_valid <= 1'b0; straddle <= 1'b0;
     end else if (dbg_resume_now) begin
@@ -249,13 +248,24 @@ module three_sipp_es_core
       straddle <= 1'b0;
       // predicted-taken control flow steers the next fetch to the predicted target
       pc       <= predict_taken_f ? predict_target_f : (pc + {29'd0, fetched_len});
+    end
+  end
+
+  // ---- Decoupled Return Address Stack (RAS) storage update -----------------
+  // Decoupling RAS into its own clocked process isolates its write-enable logic
+  // from the main F-stage PC steering and pipeline stall networks.
+  always_ff @(posedge clk) begin
+    if (rst) begin
+      ras_ptr <= '0;
+      ras_cnt <= '0;
+    end else if (!fe_stall && !redirect && !dbg_freeze && !need_straddle) begin
       if (f_is_call) begin
         ras[ras_ptr] <= pc + {29'd0, fetched_len};
-        ras_ptr <= ras_ptr + 1'b1;
+        ras_ptr      <= ras_ptr + 1'b1;
         if (ras_cnt != RAS_N) ras_cnt <= ras_cnt + 1'b1;
       end else if (f_is_ret && ras_valid) begin
-        ras_ptr <= ras_ptr - 1'b1;
-        ras_cnt <= ras_cnt - 1'b1;
+        ras_ptr      <= ras_ptr - 1'b1;
+        ras_cnt      <= ras_cnt - 1'b1;
       end
     end
   end
@@ -526,9 +536,16 @@ module three_sipp_es_core
   localparam logic [11:0] CSR_TINFO   = 12'h7A4;
 
   logic [$clog2(NTRIG)-1:0] tselect;
-  logic [XLEN-1:0]          tdata1 [0:NTRIG-1];
+  logic [XLEN-1:0]          tdata1_cfg [0:NTRIG-1];
+  logic [NTRIG-1:0]         trig_hit0;
   logic [XLEN-1:0]          tdata2 [0:NTRIG-1];
-  integer                   tg;
+
+  wire [XLEN-1:0] tdata1 [0:NTRIG-1];
+  generate
+    for (genvar g = 0; g < NTRIG; g++) begin : g_tdata1
+      assign tdata1[g] = {tdata1_cfg[g][31:22], trig_hit0[g], tdata1_cfg[g][20:0]};
+    end
+  endgenerate
 
   wire is_trig_csr = (trig_csr_addr==CSR_TSELECT)||(trig_csr_addr==CSR_TDATA1)||
                      (trig_csr_addr==CSR_TDATA2)||(trig_csr_addr==CSR_TINFO);
@@ -641,7 +658,7 @@ module three_sipp_es_core
   always_comb begin
     trig_exec = 1'b0; trig_ldst = 1'b0; trig_action_w = 1'b0; trig_tval_w = '0;
     trig_fire_mask = '0;
-    for (tg = 0; tg < NTRIG; tg = tg + 1) begin
+    for (int tg = 0; tg < NTRIG; tg = tg + 1) begin
       if (trig_chk_valid && slot_en(tdata1[tg])) begin
         // execute (PC) match
         if (slot_exec(tdata1[tg]) && (fx_pc == tdata2[tg])) begin
@@ -736,23 +753,27 @@ module three_sipp_es_core
   always_ff @(posedge clk) begin
     if (rst) begin
       tselect <= '0;
-      for (tg = 0; tg < NTRIG; tg = tg + 1) begin
-        tdata1[tg] <= {TTYPE_MC6, 28'd0};   // type=6, all disabled
-        tdata2[tg] <= '0;
+      trig_hit0 <= '0;
+      for (int tg = 0; tg < NTRIG; tg = tg + 1) begin
+        tdata1_cfg[tg] <= {TTYPE_MC6, 28'd0};   // type=6, all disabled
+        tdata2[tg]     <= '0;
       end
     end else begin
       if (trig_csr_we) begin
         unique case (trig_csr_addr)
           CSR_TSELECT: if (trig_wdata < NTRIG) tselect <= trig_wdata[$clog2(NTRIG)-1:0];
-          CSR_TDATA1 : tdata1[tselect] <= {TTYPE_MC6, trig_wdata[27:0]}; // force type6
+          CSR_TDATA1 : begin
+            tdata1_cfg[tselect] <= {TTYPE_MC6, trig_wdata[27:0]}; // force type6
+            trig_hit0[tselect]  <= trig_wdata[21];                 // software write
+          end
           CSR_TDATA2 : tdata2[tselect] <= trig_wdata;
           default    : ;
         endcase
       end
       // sticky hit0 (bit 21) on the slot(s) that fired and were acted upon
       if (trig_fire) begin
-        for (tg = 0; tg < NTRIG; tg = tg + 1)
-          if (trig_fire_mask[tg]) tdata1[tg][21] <= 1'b1;
+        for (int tg = 0; tg < NTRIG; tg = tg + 1)
+          if (trig_fire_mask[tg]) trig_hit0[tg] <= 1'b1;
       end
     end
   end

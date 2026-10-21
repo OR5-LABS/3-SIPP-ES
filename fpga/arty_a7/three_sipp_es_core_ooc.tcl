@@ -25,21 +25,22 @@ close $fp
 set_property part $part [current_project]
 set_property top three_sipp_es_core [current_fileset]
 
-# OOC constraints
+# OOC constraints (target 100 MHz / 10.0 ns)
 set xdc_file [open "ooc.xdc" w]
-puts $xdc_file "create_clock -period 40.0 -name clk \[get_ports clk\]"
+puts $xdc_file "create_clock -period 10.0 -name clk \[get_ports clk\]"
 close $xdc_file
 read_xdc -mode out_of_context "ooc.xdc"
 
 if {$is_secure} {
-    synth_design -top three_sipp_es_core -part $part -mode out_of_context -generic SECURE=1
+    synth_design -top three_sipp_es_core -part $part -mode out_of_context -generic SECURE=1 -directive PerformanceOptimized
 } else {
-    synth_design -top three_sipp_es_core -part $part -mode out_of_context
+    synth_design -top three_sipp_es_core -part $part -mode out_of_context -directive PerformanceOptimized
 }
 
-opt_design
-place_design
-route_design
+opt_design -directive Explore
+place_design -directive Explore
+phys_opt_design -directive Explore
+route_design -directive Explore
 
 report_utilization -hierarchical -file util_hier.rpt
 report_utilization -file util.rpt

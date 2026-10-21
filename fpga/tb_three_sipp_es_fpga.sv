@@ -12,7 +12,7 @@ module tb_three_sipp_es_fpga;
 
   three_sipp_es_fpga #(.CLK_HZ(50_000_000), .UART_BAUD(12_500_000),
                   .MEM_WORDS(4096), .MEMFILE("sw/firmware.mem")) dut (
-    .clk(clk), .rst(rst),
+    .clk(clk), .clk_bram(~clk), .rst(rst),
     .leds(leds), .serial_tx(serial_tx), .serial_rx(1'b1),
     .tohost(tohost), .tohost_we(tohost_we)
   );
@@ -22,10 +22,10 @@ module tb_three_sipp_es_fpga;
 
   initial begin
     rst = 1'b1; repeat (6) @(posedge clk); rst = 1'b0;
-    while (bytes < 31) @(posedge clk);
+    while (bytes < 32) @(posedge clk);
     repeat (50) @(posedge clk);
     $display("\n[FPGA] uart bytes sent=%0d  leds=0x%02x", bytes, leds);
-    if (bytes >= 31 && leds != 8'h00) $display("FPGA: PASS");
+    if (bytes >= 32 && leds != 8'h00) $display("FPGA: PASS");
     else                              $display("FPGA: FAIL");
     $finish;
   end

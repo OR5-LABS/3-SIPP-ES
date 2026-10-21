@@ -38,6 +38,10 @@ jobs:
         if: failure()
         run: tail -n 60 build/test-logs/*.log
 
+      # Makefile test target: runs smoke test and RISC-V Architectural Compliance suite
+      - name: Makefile test suite (make test)
+        run: make test
+
       # FreeRTOS demo + its tick-disabled negative control
       - name: FreeRTOS demo
         run: bash build.sh rtos

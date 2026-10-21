@@ -27,13 +27,17 @@ read_xdc $fpga_dir/three_sipp_es_arty_a7.xdc
 set_property part $part [current_project]
 set_property top three_sipp_es_arty_a7 [current_fileset]
 
+if {![file exists $build_dir/firmware.mem] && [file exists $fpga_dir/../../sw/firmware.mem]} {
+  file copy -force $fpga_dir/../../sw/firmware.mem $build_dir/firmware.mem
+}
 add_files -norecurse $build_dir/firmware.mem
 set_property file_type {Memory Initialization Files} [get_files firmware.mem]
 
-synth_design -top three_sipp_es_arty_a7 -part $part
-opt_design
-place_design
-route_design
+synth_design -top three_sipp_es_arty_a7 -part $part -directive PerformanceOptimized
+opt_design -directive Explore
+place_design -directive Explore
+phys_opt_design -directive Explore
+route_design -directive Explore
 report_utilization    -file $build_dir/util.rpt
 report_timing_summary -file $build_dir/timing.rpt
 write_checkpoint -force $build_dir/route.dcp

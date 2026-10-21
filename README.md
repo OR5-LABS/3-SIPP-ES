@@ -18,6 +18,9 @@
 
 ---
 
+
+![diagram](diagram.svg)
+
 ## Overview
 
 | | |

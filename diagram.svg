@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 316" font-family="Helvetica, Arial, sans-serif" font-size="15">
+<defs>
+<marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d62828"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1e90d8"/></marker>
+<marker id="k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#444"/></marker>
+</defs>
+<rect width="960" height="316" fill="#fff"/>
+<text transform="translate(34 160) rotate(-90)" text-anchor="middle" font-size="22" font-weight="bold" fill="#111">3-SIPP-ESR</text>
+<rect x="70" y="70" width="84" height="50" rx="4" fill="#dff0d8" stroke="#4a9d3f"/>
+<text x="112.0" y="100.0" text-anchor="middle" font-weight="bold">fetch</text>
+<rect x="158" y="70" width="84" height="50" rx="4" fill="#dff0d8" stroke="#4a9d3f"/>
+<text x="200.0" y="100.0" text-anchor="middle" font-weight="bold">predict</text>
+<rect x="246" y="70" width="84" height="50" rx="4" fill="#dff0d8" stroke="#4a9d3f"/>
+<text x="288.0" y="100.0" text-anchor="middle" font-weight="bold">rvc</text>
+<text x="200.0" y="142" text-anchor="middle" font-size="15" font-weight="bold" fill="#4a9d3f">Fetch</text>
+<rect x="352" y="70" width="84" height="50" rx="4" fill="#fff2cc" stroke="#c9a227"/>
+<text x="394.0" y="100.0" text-anchor="middle" font-weight="bold">decode</text>
+<rect x="440" y="70" width="84" height="50" rx="4" fill="#fff2cc" stroke="#c9a227"/>
+<text x="482.0" y="100.0" text-anchor="middle" font-weight="bold">reg rd</text>
+<rect x="528" y="70" width="84" height="50" rx="4" fill="#fff2cc" stroke="#c9a227"/>
+<text x="570.0" y="100.0" text-anchor="middle" font-weight="bold">alu / br</text>
+<rect x="616" y="70" width="84" height="50" rx="4" fill="#fff2cc" stroke="#c9a227"/>
+<text x="658.0" y="100.0" text-anchor="middle" font-weight="bold">csr / trap</text>
+<text x="526.0" y="142" text-anchor="middle" font-size="15" font-weight="bold" fill="#c9a227">Execute</text>
+<rect x="722" y="70" width="84" height="50" rx="4" fill="#cfe2f3" stroke="#4a82b8"/>
+<text x="764.0" y="100.0" text-anchor="middle" font-weight="bold">mem</text>
+<rect x="810" y="70" width="84" height="50" rx="4" fill="#ffc000" stroke="#b8860b"/>
+<text x="852.0" y="100.0" text-anchor="middle" font-weight="bold">wb</text>
+<text x="808.0" y="142" text-anchor="middle" font-size="15" font-weight="bold" fill="#4a82b8">Mem / Writeback</text>
+<path d="M556.0 70 V30 H112.0 V68" fill="none" stroke="#d62828" stroke-width="2.5" marker-end="url(#r)"/>
+<text x="327.0" y="23" text-anchor="middle" fill="#d62828" font-size="15" font-weight="bold">redirect</text>
+<path d="M852.0 70 V50 H584.0 V68" fill="none" stroke="#1e90d8" stroke-width="2.5" marker-end="url(#b)"/>
+<text x="718.0" y="43" text-anchor="middle" fill="#1e90d8" font-size="15" font-weight="bold">forwarding</text>
+<rect x="70" y="160" width="260" height="40" rx="4" fill="#fff" stroke="#444" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="200.0" y="185.0" text-anchor="middle" font-weight="bold" fill="#111">IMEM</text>
+<line x1="112.0" y1="120" x2="112.0" y2="158" stroke="#444" marker-start="url(#k)" marker-end="url(#k)"/>
+<rect x="70" y="214" width="153.0" height="40" rx="4" fill="#5cc15a" stroke="#2f7d2c" stroke-width="1.5"/>
+<text x="146.5" y="239.0" text-anchor="middle" font-weight="bold" fill="#111">BTB</text>
+<rect x="226.0" y="214" width="104.0" height="40" rx="4" fill="#5cc15a" stroke="#2f7d2c" stroke-width="1.5"/>
+<text x="278.0" y="239.0" text-anchor="middle" font-weight="bold" fill="#111">RAS</text>
+<rect x="70" y="258" width="260" height="40" rx="4" fill="#5cc15a" stroke="#2f7d2c" stroke-width="1.5"/>
+<text x="200.0" y="283.0" text-anchor="middle" font-weight="bold" fill="#111">gshare</text>
+<rect x="352" y="160" width="348" height="40" rx="4" fill="#fff" stroke="#444" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="526.0" y="185.0" text-anchor="middle" font-weight="bold" fill="#111">mul / div</text>
+<line x1="394.0" y1="120" x2="394.0" y2="158" stroke="#444" stroke-dasharray="4 3" marker-end="url(#k)"/>
+<rect x="352" y="214" width="348" height="40" rx="4" fill="#d98cf5" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="526.0" y="239.0" text-anchor="middle" font-weight="bold" fill="#111">PMP (SECURE)</text>
+<rect x="722" y="160" width="172" height="40" rx="4" fill="#fff" stroke="#444" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="808.0" y="185.0" text-anchor="middle" font-weight="bold" fill="#111">DRAM / CLINT / UART</text>
+<line x1="764.0" y1="120" x2="764.0" y2="158" stroke="#444" marker-start="url(#k)" marker-end="url(#k)"/>
+<rect x="722" y="214" width="172" height="40" rx="4" fill="#eee" stroke="#444" stroke-width="1.5"/>
+<text x="808.0" y="239.0" text-anchor="middle" font-weight="bold" fill="#111">JTAG debug</text>
+</svg>

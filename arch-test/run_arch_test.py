@@ -54,6 +54,7 @@ def ensure_test_suite():
             subprocess.run(
                 [
                     "git", "clone", "--depth", "1",
+                    "--branch", "2.7.4",
                     "https://github.com/riscv-non-isa/riscv-arch-test.git",
                     str(upstream_dir),
                 ],
